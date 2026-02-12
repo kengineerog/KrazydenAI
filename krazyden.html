@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>KrazyDen AI - Unleash the Crazy Intelligence</title>
+    <meta name="description" content="KrazyDen AI - The wildest, smartest, and most fun AI experience on the planet. Open-source, dynamic, and built from scratch."/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d0d1a;
+            --card: rgba(30, 30, 60, 0.6);
+            --accent: #00ffff;
+            --secondary: #ff00ff;
+            --accent-glow: #00ffff44;
+            --text: #e0e0ff;
+            --text-muted: #a0a0cc;
+            --border: rgba(0, 255, 255, 0.2);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0,255,255,0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255,0,255,0.1) 0%, transparent 20%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- NAVIGATION (Restored Stable Layout) --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(13, 13, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* --- HERO --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+            background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffaa);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 10px var(--accent-glow)); }
+            to { filter: drop-shadow(0 0 20px var(--accent-glow)); }
+        }
+
+        #typewriter-container {
+            display: flex;
+            align-items: center;
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            height: 3.5rem;
+            font-weight: 800;
+        }
+
+        #typewriter {
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #00ffff);
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 3s linear infinite;
+            position: relative;
+            display: inline-block;
+            padding-right: 12px;
+        }
+
+        /* RAINBOW FLOWING CURSOR */
+        #typewriter::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 1.1em;
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+            background: linear-gradient(315deg, #ff0000, #ff0000 14.2857%, #ff8800, #ff8800 28.5714%, #ffff00, #ffff00 42.8571%, #00ff00, #00ff00 57.1428%, #00ffff, #00ffff 71.4285%, #0088ff, #0088ff 85.7142%, #ff00ff, #ff00ff 100%);
+            background-size: 100% 700%;
+            animation: rainbowFlow 5.5s linear infinite;
+            will-change: background-position;
+            transform: translateY(-50%) translateZ(0);
+        }
+
+        @keyframes rainbowFlow { 
+            0% { background-position: 0% 0%; } 
+            100% { background-position: 0% 100%; } 
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* --- PERFECT SEXY BUTTON --- */
+        .btn {
+            display: inline-block;
+            padding: 1.4rem 4rem;
+            background: transparent;
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 1.3rem;
+            border: 3px solid var(--accent);
+            border-radius: 60px;
+            text-decoration: none;
+            transition: all 0.5s ease;
+            box-shadow: 0 0 30px var(--accent-glow), inset 0 0 20px rgba(0,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 2rem;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,255,255,0.3), transparent);
+            transition: 0.7s;
+        }
+
+        .btn:hover::before { left: 100%; }
+
+        .btn:hover {
+            background: var(--accent);
+            color: #000;
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 0 50px #00ffff, 0 0 80px #00ffff;
+        }
+
+        /* --- PAGES / VIEWS --- */
+        .view { display: none; padding: 120px 2rem 5rem; max-width: 1200px; margin: auto; flex: 1; }
+        .view.active { display: block; animation: fadeIn 0.5s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- MODELS PAGE --- */
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .model-card {
+            background: var(--card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .model-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .model-card h3 { font-family: 'Montserrat', sans-serif; font-size: 2rem; margin-bottom: 1rem; color: var(--accent); }
+        
+        .model-tag {
+            display: inline-block;
+            background: rgba(0, 255, 255, 0.1);
+            color: var(--accent);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- CONTACT FORM (God Tier) --- */
+        .contact-form {
+            max-width: 600px;
+            margin: 4rem auto;
+            background: var(--card);
+            backdrop-filter: blur(16px);
+            padding: 3rem;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .contact-form input, 
+        .contact-form textarea {
+            width: 100%;
+            padding: 1.1rem 1.4rem;
+            margin: 1.2rem 0;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(0,255,255,0.3);
+            border-radius: 16px;
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.4s ease;
+        }
+
+        .contact-form input:focus, 
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow), inset 0 0 20px rgba(0,255,255,0.1);
+            transform: scale(1.02);
+        }
+
+        .submit-success {
+            display: none;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 800;
+            padding: 1rem;
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbowText 2s ease infinite;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: auto;
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1rem;
+            background: linear-gradient(90deg, #00ffff, #ff00ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div onclick="showView('home')" class="logo">KRAZYDEN AI</div>
+        <div class="nav-links">
+            <a onclick="showView('home')">Home</a>
+            <a onclick="showView('models')">Models</a>
+            <a onclick="scrollToContact()">Q&A</a>
+        </div>
+    </nav>
+</header>
+
+<main id="home" class="view active">
+    <section class="hero">
+        <h1>KrazyDen AI</h1>
+        <div id="typewriter-container">
+            <div id="typewriter"></div>
+        </div>
+        <button class="btn" onclick="showView('models')">Explore Models</button>
+    </section>
+
+    <section id="contact">
+        <h2>Have Any Questions? Q&A</h2>
+        <p style="text-align:center; margin-bottom:1rem; color:var(--text-muted); font-size:1.1rem;">
+            We'll pick randomly, or email answers. Join waitlist below!
+        </p>
+        <div class="contact-form">
+            <form id="contactForm">
+                <input type="text" name="name" placeholder="Your Name" required />
+                <input type="email" name="email" placeholder="Your Email" required />
+                <textarea name="message" rows="5" placeholder="Your Question or Why Join KrazyDen?" required></textarea>
+                <button type="submit" class="btn" style="width:100%">Send It!</button>
+            </form>
+            <div class="submit-success">Thank You! Saved – Kraziness Incoming.</div>
+        </div>
+    </section>
+</main>
+
+<main id="models" class="view">
+    <h2>AI Models</h2>
+    <div class="models-grid">
+        <div class="model-card" onclick="showDetail('krazykore')">
+            <div class="model-tag">EXPERIMENTAL</div>
+            <h3>KrazyKoreAI</h3>
+            <p>Click to view full documentation and unsummarized technical specifications.</p>
+        </div>
+        <div class="model-card">
+            <div class="model-tag">STABLE</div>
+            <h3>Den-V1</h3>
+            <p>Our foundation model that started it all. Reliable, general-purpose, and fully open-source.</p>
+        </div>
+    </div>
+</main>
+
+<main id="krazykore" class="view">
+    <div style="margin-bottom: 2rem;">
+        <a onclick="showView('models')" style="color:var(--accent); cursor:pointer; font-weight:800;">← Back to Models</a>
+    </div>
+    <h2>KrazyKoreAI Technical Sheet</h2>
+    <div style="background:var(--card); padding:2rem; border-radius:20px; border:1px solid var(--border);">
+        <p>Experimental parameter range: 1~5 Million. Optimized for edge computing and micro-tasks.</p>
+        <ul style="margin-top:1rem; list-style-type: disc; padding-left: 1.5rem;">
+            <li><strong>Architecture:</strong> An Smart advanced model, with CoT (Chain-of-Thought) reasoning capabilities., and an dense model, so it shards really well. </li>
+            <li><strong>Training Data:</strong> 50GB of curated, high-quality text from diverse sources, including code, literature, and conversations.</li>
+            <li><strong>Performance:</strong> Achieves state-of-the-art results on benchmarks (still in alpha testing/development) while maintaining low latency and energy efficiency.</li>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 KrazyDen AI • Made with love, chaos, and zero sleep • THANK YOU!</p>
+</footer>
+
+<script>
+    function showView(viewId) {
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        document.getElementById(viewId).classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    function showDetail(id) { showView(id); }
+
+    function scrollToContact() {
+        showView('home');
+        setTimeout(() => {
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+    }
+
+    // 100+ PHRASES FOR THE TYPEWRITER
+    const phrases = [
+        "Built from Scratch", "Open-Source", "Dynamic", "Ready to Rock.", "Auto Scaling", 
+        "Runs on anything*", "Efficient", "Fast and Accurate", "Next-Gen Intelligence",
+        "Neural Evolution", "Unfiltered Potential", "Breaking the Status Quo", "Beyond Algorithms",
+        "Community Driven", "Privacy First", "Hyper-Responsive", "The Future is Krazy",
+        "Zero Latency Goals", "Global Deployment", "Decentralized Logic", "Smart Mesh Ready",
+        "KrazyKore Engine", "Den-V1 Power", "Experimental Excellence", "Real-Time Adaptation",
+        "Lightweight & Lethal", "Pure Code", "Zero Bloat", "Maximum Output", "Scalable Dreams",
+        "AI for Everyone", "The Wildest Experience", "Smarter Than Yesterday", "Built for 2026",
+        "Logic Redefined", "Reasoning Refined", "Data Harmony", "Infinite Possibilities",
+        "Unleash the Beast", "Coded with Chaos", "Born in the Den", "Driven by Curiosity",
+        "No Limits", "No Boundaries", "Just Intelligence", "Waitlist is Open", "Join the Revolution",
+        "KrazyDen Protocol", "Sub-Millisecond Thinking", "Contextual Mastery", "Deep Learning Reborn",
+        "Architecting Tomorrow", "Fluid Neural Nets", "Optimized Training", "Silicon Soul",
+        "Binary Brilliance", "Pixel Perfect AI", "The New Standard", "Aggressively Smart",
+        "Boldly Innovating", "Fearless Discovery", "Human-Centric Design", "Machine Precision",
+        "Quantum-Ready Logic", "Edge Computing Power", "Distributed Genius", "Synchronized Minds",
+        "Predictive Perfection", "Natural Language Mastery", "Visionary Tech", "Future-Proof",
+        "High Performance", "Low Energy Consumption", "Sustainable AI", "Ethical Frameworks",
+        "Transparent Systems", "Modular Components", "Plug & Play Intelligence", "API First",
+        "Developer Friendly", "User Obsessed", "Limitless Growth", "Agile Core", "Robust Security",
+        "Encrypted Thought", "Safe & Sound", "Clean Architecture", "The Alpha Choice",
+        "Vibrant Community", "Collaborative Spirit", "Open Innovation", "Rapid Iteration",
+        "Constant Improvement", "Daily Updates", "Always Learning", "Never Sleeping",
+        "Pure Innovation", "Simply Krazy", "Intelligence Unleashed", "The Den Awaits."
+    ];
+
+    let i = 0, j = 0, current = [], deleting = false;
+    const el = document.getElementById('typewriter');
+
+    function typeLoop() {
+        const full = phrases[i];
+        el.textContent = current.join('');
+        
+        if (!deleting && j < full.length) { 
+            current.push(full[j]); 
+            j++; 
+        } else if (deleting && j > 0) { 
+            current.pop(); 
+            j--; 
+        } else if (j === full.length) { 
+            setTimeout(() => { deleting = true; typeLoop(); }, 2000); 
+            return; 
+        } else if (deleting && j === 0) { 
+            deleting = false; 
+            i = (i + 1) % phrases.length; 
+        }
+        
+        const speed = deleting ? 30 : 70;
+        setTimeout(typeLoop, speed);
+    }
+    
+    window.onload = () => {
+        setTimeout(typeLoop, 500);
+    };
+
+    const form = document.getElementById('contactForm');
+    const successMsg = document.querySelector('.submit-success');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        form.reset();
+        successMsg.style.display = 'block';
+        setTimeout(() => successMsg.style.display = 'none', 5000);
+    });
+</script>
+</body>
+</html>

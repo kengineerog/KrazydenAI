@@ -363,14 +363,14 @@
     <h2>AI Models</h2>
     <div class="models-grid">
         <div class="model-card" onclick="showDetail('krazykore')">
-            <div class="model-tag">EXPERIMENTAL</div>
+            <div class="model-tag">EXPERIMENTAL -BETA</div>
             <h3>KrazyKoreAI</h3>
             <p>Click to view full documentation and unsummarized technical specifications.</p>
         </div>
-        <div class="model-card">
-            <div class="model-tag">STABLE</div>
-            <h3>Den-V1</h3>
-            <p>Our foundation model that started it all. Reliable, general-purpose, and fully open-source.</p>
+        <div class="model-card" onclick="showDetail('koreden')">
+            <div class="model-tag">EXPERIMENTAL -ALPHA</div>
+            <h3>KoreDenAI</h3>
+            <p>Multi-modal AI for autonomous robotics and heavy computational tasks. Click for details.</p>
         </div>
     </div>
 </main>
@@ -430,11 +430,117 @@
     </div>
     <h2>KrazyKoreAI Technical Sheet</h2>
     <div style="background:var(--card); padding:2rem; border-radius:20px; border:1px solid var(--border);">
+        <p style="color: var(--accent); font-weight: 800; font-size: 1.2rem; margin-bottom: 1.5rem;">!IMPORTANT! : Demo will come soon! (Expected near March of 2026)</p>
+        
         <p>Experimental parameter range: 1~5 Million. Optimized for edge computing and micro-tasks.</p>
-        <ul style="margin-top:1rem; list-style-type: disc; padding-left: 1.5rem;">
-            <li><strong>Architecture:</strong> An Smart advanced model, with CoT (Chain-of-Thought) reasoning capabilities., and an dense model, so it shards really well. </li>
-            <li><strong>Training Data:</strong> 50GB of curated, high-quality text from diverse sources, including code, literature, and conversations.</li>
-            <li><strong>Performance:</strong> Achieves state-of-the-art results on benchmarks (still in alpha testing/development) while maintaining low latency and energy efficiency.</li>
+        
+        <h3 style="color: var(--accent); margin-top: 1.5rem; margin-bottom: 1rem;">Key Features</h3>
+        <ul style="margin-top:1rem; list-style-type: disc; padding-left: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
+            <li style="margin-bottom: 0.8rem;"><strong>Uncensored Model</strong></li>
+            <li style="margin-bottom: 0.8rem;"><strong>Intelligent Reasoning:</strong> Can switch between thinking and non-thinking modes based on question automatically</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Ultra Lightweight:</strong> Achieves ~50 tokens/second on Raspberry Pi Zero 2 W</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Code Organization:</strong> Can organize and use proper indentation</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Edge Device Compatible:</strong> Runs on lightweight devices with minimal computational power</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Memory Efficient:</strong> Uses only 128-256MB of RAM</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Smart Resource Management:</strong> Uses smart resource-light transformer system that saves RAM when possible</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Dynamic Context Handling:</strong> Saves model context in RAM, then flushes to storage. When context exceeds RAM capacity, it intelligently retrieves data and provides context to model, effectively using less RAM</li>
+            <li style="margin-bottom: 0.8rem;"><strong>MCP Integration:</strong> Uses MCP tools efficiently and properly as much as possible</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Code Execution:</strong> Can efficiently execute code and is optimized for Ubuntu Linux</li>
+        </ul>
+        
+        <h3 style="color: var(--accent); margin-top: 1.5rem; margin-bottom: 1rem;">Triple Running Modes</h3>
+        <ul style="margin-top:1rem; list-style-type: disc; padding-left: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
+            <li style="margin-bottom: 0.8rem;"><strong>Fully Local:</strong> Run completely on your device</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Fully Cloud:</strong> Leverage cloud computing power</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Hybrid (Local + Cloud):</strong> Run mostly local with cloud support when:
+                <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                    <li>Local device can't keep up with request volume</li>
+                    <li>Processing audio/video files</li>
+                    <li>And more...</li>
+                </ul>
+            </li>
+        </ul>
+        
+        <h3 style="color: var(--accent); margin-top: 1.5rem; margin-bottom: 1rem;">In Development</h3>
+        <ul style="margin-top:1rem; list-style-type: disc; padding-left: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
+            <li style="margin-bottom: 0.8rem;"><strong>Integrated Voice:</strong> Talking and thinking capabilities</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Extended Training:</strong> Training AI on how to use Windows/Mac</li>
+        </ul>
+        
+        <p style="margin-top: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
+            <strong>Performance:</strong> Achieves state-of-the-art results on benchmarks* while maintaining low latency and energy efficiency. 
+            <span style="color: var(--text-muted); font-size: 0.95rem;">*Keep in mind that this is still in development, but it's kinda smart</span>
+        </p>
+    </div>
+</main>
+
+<main id="koreden" class="view">
+    <div style="margin-bottom: 2rem;">
+        <a onclick="showView('models')" style="color:var(--accent); cursor:pointer; font-weight:800;">← Back to Models</a>
+    </div>
+    <h2>KoreDenAI Technical Sheet</h2>
+    <div style="background:var(--card); padding:2rem; border-radius:20px; border:1px solid var(--border);">
+        <p>A powerful multi-modal AI model designed for autonomous robotics and heavy computational tasks.</p>
+        
+        <h3 style="color: var(--accent); margin-top: 1.5rem; margin-bottom: 1rem;">Key Specifications</h3>
+        <ul style="margin-top:1rem; list-style-type: disc; padding-left: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
+            <li style="margin-bottom: 0.8rem;"><strong>Model Architecture:</strong> 4B parameter model with thinking capabilities</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Multi-Modal Input:</strong> Accepts video, audio, and text as input for variety of applications</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Hardware Requirements:</strong> Made for heavier, more powerful machines</li>
+            <li style="margin-bottom: 0.8rem;"><strong>MCP Integration:</strong> Can use MCP tools properly and efficiently</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Code Organization:</strong> Can do proper indentation and code formatting</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Primary Use Case:</strong> Mainly designed for autonomous robotics applications</li>
+        </ul>
+        
+        <h3 style="color: var(--accent); margin-top: 1.5rem; margin-bottom: 1rem;">In Development</h3>
+        <ul style="margin-top:1rem; list-style-type: disc; padding-left: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
+            <li style="margin-bottom: 0.8rem;"><strong>Multi-Modal Output:</strong> Outputting audio, video, and robotic movement commands</li>
+            <li style="margin-bottom: 0.8rem;"><strong>MCP Server Training:</strong> Training on how to properly use MCP servers</li>
+        </ul>
+    </div>
+    <h2>KrazyKoreAI Technical Sheet</h2>
+    <div style="background:var(--card); padding:2rem; border-radius:20px; border:1px solid var(--border);">
+        <p style="color: var(--accent); font-weight: 800; font-size: 1.2rem; margin-bottom: 1.5rem;">!IMPORTANT! : Demo will come soon! (Expected near March of 2026)</p>
+        
+        <p>Experimental parameter range: 1~5 Million. Optimized for edge computing and micro-tasks.</p>
+        
+        <h3 style="color: var(--accent); margin-top: 1.5rem; margin-bottom: 1rem;">Key Features</h3>
+        <ul style="margin-top:1rem; list-style-type: disc; padding-left: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
+            <li style="margin-bottom: 0.8rem;"><strong>Uncensored Model</strong></li>
+            <li style="margin-bottom: 0.8rem;"><strong>Intelligent Reasoning:</strong> Can switch between thinking and non-thinking modes based on question automatically</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Ultra Lightweight:</strong> Achieves ~50 tokens/second on Raspberry Pi Zero 2 W</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Code Organization:</strong> Can organize and use proper indentation</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Edge Device Compatible:</strong> Runs on lightweight devices with minimal computational power</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Memory Efficient:</strong> Uses only 128-256MB of RAM</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Smart Resource Management:</strong> Uses smart resource-light transformer system that saves RAM when possible</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Dynamic Context Handling:</strong> Saves model context in RAM, then flushes to storage. When context exceeds RAM capacity, it intelligently retrieves data and provides context to model, effectively using less RAM</li>
+            <li style="margin-bottom: 0.8rem;"><strong>MCP Integration:</strong> Uses MCP tools efficiently and properly as much as possible</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Code Execution:</strong> Can efficiently execute code and is optimized for Ubuntu Linux</li>
+        </ul>
+        
+        <h3 style="color: var(--accent); margin-top: 1.5rem; margin-bottom: 1rem;">Triple Running Modes</h3>
+        <ul style="margin-top:1rem; list-style-type: disc; padding-left: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
+            <li style="margin-bottom: 0.8rem;"><strong>Fully Local:</strong> Run completely on your device</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Fully Cloud:</strong> Leverage cloud computing power</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Hybrid (Local + Cloud):</strong> Run mostly local with cloud support when:
+                <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                    <li>Local device can't keep up with request volume</li>
+                    <li>Processing audio/video files</li>
+                    <li>And more...</li>
+                </ul>
+            </li>
+        </ul>
+        
+        <h3 style="color: var(--accent); margin-top: 1.5rem; margin-bottom: 1rem;">In Development</h3>
+        <ul style="margin-top:1rem; list-style-type: disc; padding-left: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
+            <li style="margin-bottom: 0.8rem;"><strong>Integrated Voice:</strong> Talking and thinking capabilities</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Extended Training:</strong> Training AI on how to use Windows/Mac</li>
+        </ul>
+        
+        <p style="margin-top: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
+            <strong>Performance:</strong> Achieves state-of-the-art results on benchmarks* while maintaining low latency and energy efficiency. 
+            <span style="color: var(--text-muted); font-size: 0.95rem;">*Keep in mind that this is still in development, but it's kinda smart</span>
+        </p>
     </div>
 </main>
 

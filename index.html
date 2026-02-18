@@ -4,10 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>KrazyDen AI - Unleash the Crazy Intelligence</title>
-    <meta name="description" content="KrazyDen AI - The wildest, smartest, and most fun AI experience on the planet. Open-source, dynamic, and built from scratch."/>
+    <meta name="description" content="KrazyDen AI - The wildest, smartest, and most fun AI experience on the planet."/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <style>
         :root {
+            /* DARK THEME (DEFAULT) */
             --bg: #0d0d1a;
             --card: rgba(30, 30, 60, 0.7);
             --accent: #00eaff;
@@ -17,18 +18,25 @@
             --text-muted: #b0b0dd;
             --border: rgba(0, 234, 255, 0.25);
             --input-bg: rgba(20,20,40,0.85);
+            --shadow: 0 20px 50px rgba(0,0,0,0.3);
+            --glass-border: 1px solid rgba(0, 234, 255, 0.1);
         }
+
+        /* NEW "HOLOGRAPHIC" LIGHT THEME */
         body.light {
-            --bg: #b0c8ff;
-            --card: rgba(220,225,255,0.94);
-            --accent: #003366;
-            --secondary: #440066;
-            --accent-glow: #00336633;
-            --text: #000d1f;
-            --text-muted: #2a3a55;
-            --border: rgba(0,51,102,0.25);
-            --input-bg: #c8d8ff;
+            --bg: #f4f7fc; /* Very pale cool blue-grey */
+            --card: rgba(255, 255, 255, 0.65); /* Frosted white glass */
+            --accent: #0055ff; /* Electric Royal Blue */
+            --secondary: #aa00ff; /* Bright Proton Purple */
+            --accent-glow: rgba(0, 85, 255, 0.15);
+            --text: #0a0a2a; /* Deep Midnight Blue (High Contrast) */
+            --text-muted: #505080; /* Cool Grey-Blue */
+            --border: rgba(255, 255, 255, 0.8);
+            --input-bg: #ffffff;
+            --shadow: 0 15px 40px rgba(0, 85, 255, 0.1); /* Soft Blue Shadow */
+            --glass-border: 1px solid rgba(255, 255, 255, 0.9);
         }
+
         * { margin:0; padding:0; box-sizing:border-box; }
 
         body {
@@ -37,185 +45,165 @@
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
-            background-image:
-                radial-gradient(circle at 10% 20%, rgba(0,234,255,0.05) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(195,0,255,0.05) 0%, transparent 20%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             transition: background 0.5s ease, color 0.5s ease;
+            
+            /* Dynamic Background Gradient */
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(0, 234, 255, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(195, 0, 255, 0.08) 0%, transparent 40%);
+            background-attachment: fixed;
         }
 
-        /* PROGRESS BAR AT THE TIP - UPDATED TO 12% */
-        .progress-wrapper { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            z-index: 2000; 
-            pointer-events: none; 
+        /* Light Theme Specific Background Override */
+        body.light {
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(0, 85, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(170, 0, 255, 0.15) 0%, transparent 50%);
         }
-        .progress-container { 
-            width: 100%; 
-            height: 5px; 
-            background: rgba(13, 71, 161, 0.3); 
-            overflow: hidden; 
-        }
+
+        /* PROGRESS BAR */
+        .progress-wrapper { position: fixed; top: 0; left: 0; width: 100%; z-index: 2000; pointer-events: none; }
+        .progress-container { width: 100%; height: 5px; background: rgba(13, 71, 161, 0.1); overflow: hidden; }
         .progress-fill { 
-            width: 0%; 
-            height: 100%; 
+            width: 0%; height: 100%; 
             background: linear-gradient(90deg, var(--accent), var(--secondary), var(--accent)); 
             background-size: 200% auto;
             box-shadow: 0 0 15px var(--accent);
             animation: fill-to-12 2s cubic-bezier(0.65, 0, 0.35, 1) forwards, gradientMove 3s linear infinite; 
         }
+
+        /* Progress Text: Bottom Left of Bar */
         .progress-text { 
             position: absolute;
-            top: 8px;
-            right: 20px;
+            top: 10px;
+            left: 20px;
             font-size: 0.75rem; 
             font-weight: 800; 
             color: var(--accent); 
             text-transform: uppercase;
             letter-spacing: 1px;
-            text-shadow: 0 0 8px rgba(0,234,255,0.5); 
             opacity: 0; 
             animation: fade-in-text 0.6s ease-out 1.5s forwards; 
         }
         @keyframes fill-to-12 { 0% { width: 0%; } 100% { width: 12%; } }
 
         header {
-            position: fixed;
-            top: 5px; 
-            width: 100%;
-            z-index: 1000;
-            background: rgba(13,13,26,0.9);
-            backdrop-filter: blur(14px);
-            border-bottom: 1px solid var(--border);
+            position: fixed; top: 5px; width: 100%; z-index: 1000;
+            background: rgba(13,13,26,0.8); backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        body.light header { background: rgba(176,200,255,0.92); }
+        body.light header { 
+            background: rgba(255, 255, 255, 0.7); 
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
 
         nav {
-            max-width: 1200px;
-            margin: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.3rem 2.5rem;
-            position: relative;
+            max-width: 1200px; margin: auto;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.3rem 2.5rem; position: relative;
         }
 
         .logo {
-            font-family: 'Inter', sans-serif;
-            font-weight: 800;
-            font-size: 2rem;
+            font-family: 'Inter', sans-serif; font-weight: 800; font-size: 2rem;
             background: linear-gradient(45deg, var(--accent), var(--secondary));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-decoration: none;
-            letter-spacing: 0.5px;
-            cursor: pointer;
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-decoration: none; cursor: pointer;
         }
 
-        .nav-links { display: flex; gap: 2.5rem; }
+        .nav-links { display: flex; gap: 2.5rem; align-items: center; }
         .nav-links a {
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 600;
-            transition: color 0.3s ease;
-            cursor: pointer;
+            text-decoration: none; color: var(--text); font-weight: 600;
+            transition: color 0.3s ease; cursor: pointer;
         }
         .nav-links a:hover { color: var(--accent); }
 
-        .settings-wrapper { position: relative; }
-        #settingsTrigger { cursor: pointer; }
+        /* SETTINGS: Expanded Hover Area */
+        .settings-wrapper { 
+            position: relative; 
+            padding: 15px 10px; /* Invisible bridge */
+            margin: -15px -10px; /* Counteract margin */
+        }
+        #settingsTrigger { cursor: pointer; padding: 5px 10px; }
+        
         .theme-flyout {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            margin-top: 14px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 32px;
-            box-shadow: 0 20px 55px rgba(0,0,0,0.65);
-            backdrop-filter: blur(18px);
-            width: 240px;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(-12px) scale(0.94);
-            pointer-events: none;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: absolute; top: 100%; right: 0; margin-top: 5px;
+            background: var(--card); border: var(--glass-border);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            width: 220px; overflow: hidden;
+            opacity: 0; transform: translateY(-8px) scale(0.96); pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             z-index: 1001;
         }
         .theme-flyout.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+        
         .flyout-title {
-            padding: 1.3rem 1.8rem;
+            padding: 1rem;
             background: linear-gradient(90deg, var(--accent), var(--secondary));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 1.15rem;
-            font-weight: 700;
-            text-align: center;
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: 1rem; font-weight: 700; text-align: center;
             border-bottom: 1px solid var(--border);
         }
         .flyout-option {
-            padding: 1.15rem 1.8rem;
-            color: var(--text);
-            cursor: pointer;
-            transition: all 0.3s ease;
+            padding: 1rem 1.5rem; color: var(--text); cursor: pointer; transition: all 0.2s ease;
         }
-        .flyout-option:hover {
-            background: var(--accent-glow);
-            color: var(--accent);
-            padding-left: 2.2rem;
-        }
-        .flyout-github {
-            padding: 1.2rem 1.8rem;
-            text-align: center;
-            border-top: 1px solid var(--border);
-        }
-        .flyout-github a {
-            color: var(--accent);
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
+        .flyout-option:hover { background: var(--accent-glow); color: var(--accent); padding-left: 1.8rem; }
+        .flyout-github { padding: 1rem; text-align: center; border-top: 1px solid var(--border); }
+        .flyout-github a { color: var(--accent); font-weight: 700; text-decoration: none; }
 
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; }
-        .hero-logo-wrapper { position: relative; display: inline-block; }
-        .hero-logo-wrapper h1 { font-family: 'Montserrat', sans-serif; font-size: clamp(3.5rem, 11vw, 7rem); font-weight: 900; margin-bottom: 1.2rem; letter-spacing: -2.5px; background: linear-gradient(90deg, var(--accent), var(--secondary), #00ffaa); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: glow 2s ease-in-out infinite alternate; position: relative; z-index: 2; }
+        .hero-logo-wrapper h1 { 
+            font-family: 'Montserrat', sans-serif; font-size: clamp(3.5rem, 11vw, 7rem); 
+            font-weight: 900; margin-bottom: 1.2rem; letter-spacing: -2.5px; 
+            background: linear-gradient(90deg, var(--accent), var(--secondary), #00ffaa); 
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            animation: glow 2s ease-in-out infinite alternate; position: relative; z-index: 2; 
+        }
         
         @keyframes fade-in-text { 0% { opacity: 0; transform: translateY(-4px); } 100% { opacity: 1; transform: translateY(0); } }
         @keyframes glow { from { filter: drop-shadow(0 0 10px var(--accent-glow)); } to { filter: drop-shadow(0 0 20px var(--accent-glow)); } }
 
         #typewriter-container { display:flex; align-items:center; font-size:clamp(1.2rem,4vw,2rem); height:3.5rem; font-weight:800; }
-        #typewriter { background:linear-gradient(45deg,#00ffff,#ff00ff,#00ffff); background-size:200% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; animation:gradientMove 3s linear infinite; position:relative; display:inline-block; padding-right:14px; }
-        #typewriter::after { content:''; position:absolute; right:0; top:50%; transform:translateY(-50%); width:6px; height:1.15em; background:linear-gradient(315deg,#ff0000,#ff8800,#ffff00,#00ff00,#00ffff,#0088ff,#ff00ff); background-size:100% 700%; animation:rainbowFlow 5.5s linear infinite; box-shadow:0 0 12px rgba(255,255,255,0.8); border-radius:3px; }
+        #typewriter { 
+            background:linear-gradient(45deg,#00ffff,#ff00ff,#00ffff); 
+            background-size:200% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; 
+            animation:gradientMove 3s linear infinite; position:relative; display:inline-block; padding-right:14px; 
+        }
+        /* Fix Typewriter colors in light mode to be more visible */
+        body.light #typewriter {
+            background:linear-gradient(45deg, #0055ff, #aa00ff, #0055ff); 
+            background-clip: text; -webkit-background-clip: text;
+        }
+
+        #typewriter::after { content:''; position:absolute; right:0; top:50%; transform:translateY(-50%); width:6px; height:1.15em; background:linear-gradient(315deg,#ff0000,#ff8800,#ffff00,#00ff00,#00ffff,#0088ff,#ff00ff); background-size:100% 700%; animation:rainbowFlow 5.5s linear infinite; border-radius:3px; }
         @keyframes rainbowFlow { 0%{background-position:0% 0%} 100%{background-position:0% 100%} }
         @keyframes gradientMove { 0%{background-position:0% center} 100%{background-position:200% center} }
 
         #contact { padding: 6rem 2rem; }
         .typeform-embed {
-            max-width: 900px;
-            margin: 4rem auto;
-            background: var(--card);
-            backdrop-filter: blur(16px);
-            padding: 2rem;
-            border-radius: 30px;
-            border: 1px solid var(--border);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-            position: relative;
-            overflow: hidden;
+            max-width: 900px; margin: 4rem auto;
+            background: var(--card); backdrop-filter: blur(16px);
+            padding: 2rem; border-radius: 30px;
+            border: var(--glass-border); box-shadow: var(--shadow);
+            position: relative; overflow: hidden;
         }
         .typeform-embed::before { content: ""; display: block; padding-top: 75%; }
         .typeform-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 20px; }
 
-        .btn { display:inline-block; padding:1.4rem 4rem; background:transparent; color:var(--accent); font-weight:800; font-size:1.3rem; border:3px solid var(--accent); border-radius:60px; transition:all 0.5s ease; box-shadow:0 0 30px var(--accent-glow),inset 0 0 20px rgba(0,255,255,0.2); position:relative; overflow:hidden; cursor:pointer; text-transform:uppercase; letter-spacing:2px; margin-top:2rem; }
-        .btn::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(0,255,255,0.3),transparent); transition:0.7s; }
+        .btn { 
+            display:inline-block; padding:1.4rem 4rem; background:transparent; 
+            color:var(--accent); font-weight:800; font-size:1.3rem; 
+            border:3px solid var(--accent); border-radius:60px; transition:all 0.5s ease; 
+            box-shadow:0 0 30px var(--accent-glow), inset 0 0 20px rgba(0,255,255,0.05); 
+            position:relative; overflow:hidden; cursor:pointer; text-transform:uppercase; letter-spacing:2px; margin-top:2rem; 
+        }
+        .btn::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,var(--accent-glow),transparent); transition:0.7s; }
         .btn:hover::before { left:100%; }
-        .btn:hover { background:var(--accent); color:#000; transform:translateY(-6px) scale(1.05); box-shadow:0 0 50px var(--accent),0 0 80px var(--accent); }
+        .btn:hover { background:var(--accent); color: #fff; transform:translateY(-6px) scale(1.05); box-shadow:0 0 50px var(--accent); }
 
         .view { display:none; padding:120px 2rem 5rem; max-width:1200px; margin:auto; flex:1; }
         .view.active { display:block; animation:fadeIn 0.5s ease; }
@@ -224,16 +212,22 @@
         h2 { font-family:'Montserrat',sans-serif; font-size:3.5rem; text-align:center; margin-bottom:3rem; background:linear-gradient(90deg,var(--accent),var(--secondary)); background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
 
         .models-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2rem; margin-top:2rem; }
-        .model-card { background:var(--card); backdrop-filter:blur(10px); border:1px solid var(--border); border-radius:24px; padding:2.5rem; transition:0.3s; cursor:pointer; }
-        .model-card.featured { transform:scale(1.05); border:2px solid var(--accent); box-shadow:0 20px 50px rgba(0,255,255,0.3); }
-        .model-card:hover { border-color:var(--accent); transform:translateY(-12px); box-shadow:0 25px 50px rgba(0,0,0,0.45); }
+        .model-card { 
+            background: var(--card); backdrop-filter: blur(10px); 
+            border: var(--glass-border); border-radius: 24px; padding: 2.5rem; 
+            transition: 0.3s; cursor: pointer; box-shadow: var(--shadow); 
+        }
+        .model-card.featured { transform:scale(1.05); border:2px solid var(--accent); }
+        .model-card:hover { border-color:var(--accent); transform:translateY(-12px); }
         .model-card h3 { font-family:'Montserrat',sans-serif; font-size:2.1rem; margin-bottom:1rem; color:var(--accent); }
         .model-tag { display:inline-block; background:rgba(0,255,255,0.12); color:var(--accent); padding:0.4rem 1.2rem; border-radius:24px; font-size:0.85rem; font-weight:800; margin-bottom:1.5rem; }
+        
+        body.light .model-tag { background: rgba(0, 85, 255, 0.1); }
 
-        .info-section { background:var(--card); padding:3rem; border-radius:30px; border:1px solid var(--border); box-shadow:0 20px 50px rgba(0,0,0,0.3); margin-top:2rem; }
+        .info-section { background:var(--card); padding:3rem; border-radius:30px; border:var(--glass-border); box-shadow: var(--shadow); margin-top:2rem; }
         .info-section h3 { font-family:'Montserrat', sans-serif; font-size:2.2rem; color:var(--accent); margin-bottom:1.5rem; }
         .info-section p { font-size:1.15rem; margin-bottom:1.5rem; color:var(--text); }
-        .highlight-box { background:rgba(0,234,255,0.05); border-left:4px solid var(--accent); padding:1.5rem; margin:2rem 0; font-style:italic; }
+        .highlight-box { background:var(--accent-glow); border-left:4px solid var(--accent); padding:1.5rem; margin:2rem 0; font-style:italic; }
 
         footer { margin-top:auto; padding:4rem 2rem 3rem; text-align:center; color:var(--text-muted); font-size:1rem; background:linear-gradient(90deg,var(--accent),var(--secondary)); background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:1px; font-weight:600; }
     </style>
@@ -319,15 +313,10 @@
     <div class="info-section">
         <h3>The Philosophy of Krazy Intelligence</h3>
         <p>KrazyDen AI isn't just another tech project; it's a rebellion against the "Black Box" of modern artificial intelligence. We believe that true intelligence shouldn't be locked behind massive server farms or corporate filters. It should be <strong>wild, efficient, and open.</strong></p>
-        
         <div class="highlight-box">
             "We aren't building just an AI; we're building a new way for silicon to think—from the smallest Raspberry Pi to the most complex robot."
         </div>
-
         <p>Our mission is to achieve <strong>Reasoning at the Edge.</strong> By optimizing every single parameter, we enable high-level logic (CoT) to run on devices that other models wouldn't even boot on. KrazyDen is built from the ground up to be uncensored, lightweight, and aggressively innovative.</p>
-        
-        <h3 style="margin-top:2rem;">Why "Krazy"?</h3>
-        <p>Because everyone said it was impossible to run Chain-of-Thought reasoning on a micro-controller. We did it anyway. Because we value transparency and experimentation over safe, boring algorithms. We embrace the chaos of rapid iteration to find the next breakthrough.</p>
     </div>
 </main>
 
@@ -336,16 +325,9 @@
     <div class="info-section">
         <h3>Kanishk Sampathkumar</h3>
         <p>Hi, I'm Kanishk. I'm the lead architect and founder behind KrazyDen AI. I started this journey because I was tired of the limitations placed on modern AI—the high costs, the lack of privacy, and the massive hardware requirements.</p>
-        
-        <p>My background is rooted in deep system optimization and neural architecture. I don't just want to build AI that talks; I want to build AI that <strong>understands</strong> how to interact with the world around it—whether that's through a Linux terminal or a robotic arm.</p>
-
         <div class="highlight-box">
             "The goal has always been simple: empower the individual. Give everyone the power of a digital brain that they own, control, and can run anywhere."
         </div>
-
-        <h3 style="margin-top:2rem;">Current Focus</h3>
-        <p>Right now, I'm obsessively refining the <strong>KrazyKoreDen</strong> engine, pushing our 12% model completion toward a full-scale release by 2026. When I'm not coding neural layers, I'm usually figuring out how to squeeze more performance out of Ubuntu-based edge devices.</p>
-        
         <button class="btn" style="margin-top:1rem; padding: 1rem 2rem; font-size: 1rem;" onclick="window.open('https://github.com/kengineerog', '_blank')">Follow My Work</button>
     </div>
 </main>
@@ -364,17 +346,16 @@
 </footer>
 
 <script>
-    const settingsTrigger = document.getElementById('settingsTrigger');
+    const settingsWrapper = document.querySelector('.settings-wrapper');
     const themeFlyout = document.getElementById('themeFlyout');
 
-    settingsTrigger.addEventListener('mouseenter', () => { themeFlyout.classList.add('open'); });
-    settingsTrigger.addEventListener('mouseleave', () => {
-        setTimeout(() => { if (!themeFlyout.matches(':hover')) themeFlyout.classList.remove('open'); }, 100);
+    settingsWrapper.addEventListener('mouseenter', () => { themeFlyout.classList.add('open'); });
+    settingsWrapper.addEventListener('mouseleave', () => {
+        setTimeout(() => { if (!themeFlyout.matches(':hover')) themeFlyout.classList.remove('open'); }, 200);
     });
+    
     themeFlyout.addEventListener('mouseenter', () => { themeFlyout.classList.add('open'); });
     themeFlyout.addEventListener('mouseleave', () => { themeFlyout.classList.remove('open'); });
-
-    settingsTrigger.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); themeFlyout.classList.toggle('open'); });
 
     const flyoutOptions = themeFlyout.querySelectorAll('.flyout-option');
     flyoutOptions.forEach(option => {

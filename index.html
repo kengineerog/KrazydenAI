@@ -38,6 +38,7 @@
         }
 
         * { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -119,6 +120,14 @@
             transition: color 0.3s ease; cursor: pointer;
         }
         .nav-links a:hover { color: var(--accent); }
+        .nav-links a.active { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
+        .nav-links a:focus-visible,
+        .btn:focus-visible,
+        .creator-link:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 8px;
+        }
 
         /* SETTINGS: Expanded Hover Area */
         .settings-wrapper { 
@@ -228,6 +237,90 @@
         .info-section h3 { font-family:'Montserrat', sans-serif; font-size:2.2rem; color:var(--accent); margin-bottom:1.5rem; }
         .info-section p { font-size:1.15rem; margin-bottom:1.5rem; color:var(--text); }
         .highlight-box { background:var(--accent-glow); border-left:4px solid var(--accent); padding:1.5rem; margin:2rem 0; font-style:italic; }
+        .about-layout { display:grid; gap:1.5rem; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); margin-top:1.5rem; }
+        .about-card {
+            background: rgba(0,0,0,0.12);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1.3rem;
+        }
+        body.light .about-card { background: rgba(255,255,255,0.5); }
+        .about-card h4 {
+            font-family:'Montserrat', sans-serif;
+            color:var(--accent);
+            font-size:1.1rem;
+            margin-bottom:0.6rem;
+            letter-spacing:0.5px;
+        }
+        .about-card p { font-size:1rem; margin:0; color:var(--text-muted); }
+        .about-list { margin-top:1rem; display:grid; gap:0.75rem; }
+        .about-list li {
+            list-style:none;
+            background: rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 0.8rem 1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        body.light .about-list li { background: rgba(255,255,255,0.55); }
+        .creator-hero {
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:space-between;
+            gap:1rem;
+            align-items:flex-end;
+            border-bottom:1px solid var(--border);
+            padding-bottom:1rem;
+            margin-bottom:1.5rem;
+        }
+        .creator-tag {
+            display:inline-block;
+            padding:0.35rem 0.8rem;
+            border-radius:999px;
+            border:1px solid var(--border);
+            font-size:0.8rem;
+            font-weight:800;
+            letter-spacing:1px;
+            color:var(--accent);
+            text-transform:uppercase;
+        }
+        .creator-links {
+            margin-top:1.2rem;
+            display:flex;
+            gap:1rem;
+            flex-wrap:wrap;
+        }
+        .creator-link {
+            display:inline-block;
+            text-decoration:none;
+            border:1px solid var(--border);
+            border-radius:14px;
+            padding:0.7rem 1rem;
+            color:var(--text);
+            font-weight:700;
+            background:rgba(0,0,0,0.1);
+        }
+        body.light .creator-link { background:rgba(255,255,255,0.6); }
+        .creator-link:hover { color:var(--accent); border-color:var(--accent); }
+
+        @media (max-width: 900px) {
+            nav { padding: 1rem 1.2rem; flex-direction: column; gap: 0.8rem; }
+            .nav-links { gap: 1rem; flex-wrap: wrap; justify-content: center; }
+            .view { padding: 140px 1.2rem 4rem; }
+            h2 { font-size: 2.5rem; margin-bottom: 2rem; }
+            .info-section { padding: 2rem; }
+        }
+        @media (max-width: 640px) {
+            .hero { height: 90vh; padding: 1rem; }
+            .btn { padding: 1rem 2rem; font-size: 1rem; letter-spacing: 1px; }
+            .model-card { padding: 1.6rem; }
+            .info-section h3 { font-size: 1.5rem; }
+            .info-section p { font-size: 1rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+        }
 
         footer { margin-top:auto; padding:4rem 2rem 3rem; text-align:center; color:var(--text-muted); font-size:1rem; background:linear-gradient(90deg,var(--accent),var(--secondary)); background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:1px; font-weight:600; }
     </style>
@@ -245,10 +338,10 @@
     <nav>
         <div onclick="showView('home')" class="logo">KRAZYDEN AI</div>
         <div class="nav-links">
-            <a onclick="showView('home')">Home</a>
-            <a onclick="showView('models')">Models</a>
-            <a onclick="showView('about')">About</a>
-            <a onclick="showView('about-me')">Creator</a>
+            <a data-view="home" onclick="showView('home')">Home</a>
+            <a data-view="models" onclick="showView('models')">Models</a>
+            <a data-view="about" onclick="showView('about')">About</a>
+            <a data-view="about-me" onclick="showView('about-me')">Creator</a>
             <a onclick="scrollToContact()">Q&A</a>
             <div class="settings-wrapper">
                 <a id="settingsTrigger">Settings</a>
@@ -293,12 +386,12 @@
         <div class="model-card featured" onclick="showDetail('krazykoreden')">
             <div class="model-tag">FOCUS - ALPHA</div>
             <h3>KrazyKoreDenAI</h3>
-            <p>Our flagship experimental model — 64M params, CoT reasoning, tool use. Click for specs.</p>
+            <p>Our flagship experimental model - 64M params, CoT reasoning, tool use. Click for specs.</p>
         </div>
         <div class="model-card" onclick="showDetail('krazykore')">
             <div class="model-tag">EXPERIMENTAL - BETA</div>
             <h3>KrazyKoreAI</h3>
-            <p>Ultra-light edge model (1–5M params). Click for docs.</p>
+            <p>Ultra-light edge model (1-5M params). Click for docs.</p>
         </div>
         <div class="model-card" onclick="showDetail('koreden')">
             <div class="model-tag">EXPERIMENTAL - ALPHA</div>
@@ -311,43 +404,238 @@
 <main id="about" class="view">
     <h2>About KrazyDen AI</h2>
     <div class="info-section">
-        <h3>The Philosophy of Krazy Intelligence</h3>
-        <p>KrazyDen AI isn't just another tech project; it's a rebellion against the "Black Box" of modern artificial intelligence. We believe that true intelligence shouldn't be locked behind massive server farms or corporate filters. It should be <strong>wild, efficient, and open.</strong></p>
+        <h3>Reasoning at the Edge</h3>
+        <p>KrazyDen AI is built around one belief: powerful AI should not be locked behind expensive cloud stacks. The project focuses on making reasoning models practical on personal hardware, from compact boards to high-performance local rigs.</p>
         <div class="highlight-box">
-            "We aren't building just an AI; we're building a new way for silicon to think—from the smallest Raspberry Pi to the most complex robot."
+            "We are not just building a model. We are building a practical intelligence stack people can run, inspect, and evolve on their own machines."
         </div>
-        <p>Our mission is to achieve <strong>Reasoning at the Edge.</strong> By optimizing every single parameter, we enable high-level logic (CoT) to run on devices that other models wouldn't even boot on. KrazyDen is built from the ground up to be uncensored, lightweight, and aggressively innovative.</p>
+        <div class="about-layout">
+            <div class="about-card">
+                <h4>Mission</h4>
+                <p>Deliver high-quality reasoning models that stay fast, private, and deployable across edge and local environments.</p>
+            </div>
+            <div class="about-card">
+                <h4>Core Principle</h4>
+                <p>Local-first intelligence: your workflows, your data, your compute, your control.</p>
+            </div>
+            <div class="about-card">
+                <h4>Research Focus</h4>
+                <p>CoT behavior, adaptive runtime routing, quantized efficiency, and tool-driven agent workflows.</p>
+            </div>
+            <div class="about-card">
+                <h4>Why It Matters</h4>
+                <p>Teams and builders get production-capable AI without mandatory cloud dependency or vendor lock-in.</p>
+            </div>
+        </div>
+        <h3 style="margin-top:2rem;">What KrazyDen Prioritizes</h3>
+        <ul class="about-list">
+            <li>Reliable reasoning over benchmark vanity</li>
+            <li>Efficient inference on constrained hardware</li>
+            <li>Transparent model behavior and controllable runtime modes</li>
+            <li>Tool-ready architecture for coding, automation, and robotics workflows</li>
+            <li>Open iteration with fast feedback from real usage</li>
+        </ul>
+        <h3 style="margin-top:2rem;">Project Direction</h3>
+        <p>The roadmap pushes toward better long-context memory, stronger planner consistency, and cleaner orchestration between lightweight and high-capacity models. Every release is measured by practical usefulness, not just isolated metrics.</p>
     </div>
 </main>
 
 <main id="about-me" class="view">
     <h2>The Creator</h2>
     <div class="info-section">
-        <h3>Kanishk Sampathkumar</h3>
-        <p>Hi, I'm Kanishk. I'm the lead architect and founder behind KrazyDen AI. I started this journey because I was tired of the limitations placed on modern AI—the high costs, the lack of privacy, and the massive hardware requirements.</p>
+        <div class="creator-hero">
+            <div>
+                <h3 style="margin-bottom:0.4rem;">Kanishk Sampathkumar</h3>
+                <p style="margin:0; color:var(--text-muted);">Founder, Lead Architect, and Core Builder of KrazyDen AI</p>
+            </div>
+            <span class="creator-tag">Independent AI Engineer</span>
+        </div>
+        <p>KrazyDen started as a response to a clear gap: most AI tools were becoming heavier, more closed, and more expensive to run. The goal here is the opposite: make intelligence lightweight, controllable, and practical for real builders.</p>
         <div class="highlight-box">
-            "The goal has always been simple: empower the individual. Give everyone the power of a digital brain that they own, control, and can run anywhere."
+            "The goal is to make strong AI capability feel native on personal hardware, not gated behind infrastructure most people cannot access."
+        </div>
+        <div class="about-layout">
+            <div class="about-card">
+                <h4>Build Style</h4>
+                <p>Ship fast, validate on hardware, and iterate from user pain points instead of theory-only design.</p>
+            </div>
+            <div class="about-card">
+                <h4>Technical Interests</h4>
+                <p>Edge inference, CoT optimization, model routing, agent tooling, and robotics-oriented reasoning.</p>
+            </div>
+            <div class="about-card">
+                <h4>Current Focus</h4>
+                <p>Turning the model family into a coherent stack where each model has a clear role and handoff strategy.</p>
+            </div>
+            <div class="about-card">
+                <h4>Collaboration</h4>
+                <p>Open to feedback from developers testing real constraints, real workloads, and real deployment limits.</p>
+            </div>
+        </div>
+        <h3 style="margin-top:2rem;">Creator Notes</h3>
+        <p>If you are experimenting with local AI, robotics workflows, or tool-first agents, KrazyDen is built for that path. The project welcomes practical feedback, bug reports, and deployment results.</p>
+        <div class="creator-links">
+            <a class="creator-link" href="https://github.com/kengineerog/KrazydenAI" target="_blank">Project Repository</a>
+            <a class="creator-link" href="https://github.com/kengineerog" target="_blank">Creator GitHub</a>
+            <a class="creator-link" href="https://www.youtube.com/@KdenKratz_128" target="_blank">YouTube Channel</a>
         </div>
         <button class="btn" style="margin-top:1rem; padding: 1rem 2rem; font-size: 1rem;" onclick="window.open('https://github.com/kengineerog', '_blank')">Follow My Work</button>
     </div>
 </main>
 
 <main id="krazykoreden" class="view">
-    <div style="margin-bottom: 2rem;"><a onclick="showView('models')" style="color:var(--accent); cursor:pointer; font-weight:800; font-size:1.2rem;">← Back to Models</a></div>
+    <div style="margin-bottom: 2rem;"><a onclick="showView('models')" style="color:var(--accent); cursor:pointer; font-weight:800; font-size:1.2rem;">Back to Models</a></div>
     <h2>KrazyKoreDenAI Specs</h2>
     <div class="info-section">
-        <p style="color: var(--accent); font-weight: 800; font-size: 1.2rem;">!IMPORTANT! : Demo Expected March 2026</p>
-        <p>64 Million parameters optimized for Raspberry Pi Zero 2 W. Featuring Chain-of-Thought reasoning and smart resource management.</p>
+        <p style="color: var(--accent); font-weight: 800; font-size: 1.2rem;">FLAGSHIP FOCUS ALPHA | CoT + Dynamic Runtime Routing</p>
+        <p>KrazyKoreDenAI is the core reasoning model in the KrazyDen family. It is designed as a Chain of Thought model that can adapt its own runtime profile while executing a task, so it does not stay locked into one inference behavior from prompt start to prompt end.</p>
+        <p><strong>Version:</strong> Focus Alpha</p>
+        <p><strong>Parameters:</strong> 64M</p>
+        <p><strong>Context Window:</strong> 16K target, with adaptive compression path for low-memory hardware</p>
+        <p><strong>Primary Goal:</strong> Strong reasoning quality on low-power edge devices without forcing cloud dependence</p>
+        <p><strong>Target Hardware:</strong> Raspberry Pi Zero 2 W, Raspberry Pi 4/5, N100 mini PCs, ARM edge boards</p>
+        <p><strong>Status:</strong> Active development and continuous benchmark tuning</p>
+        <h3>Reasoning System (CoT)</h3>
+        <p>KrazyKoreDenAI uses a staged thought process internally: intent parse, task decomposition, evidence weighting, step validation, and answer composition. This lets the model handle planning, debugging, and multi-step question chains with better reliability than a single-pass response pattern.</p>
+        <p>The reasoning pipeline also supports confidence scoring per stage. If confidence drops under threshold, the model can switch to a verification route before final output.</p>
+        <h3>Dynamic Runtime Switching</h3>
+        <p>This model can change what it is running based on prompt complexity, latency targets, and resource limits. During one session it may move between lightweight decode mode, balanced mode, and deep reasoning mode.</p>
+        <p><strong>Lightweight Mode:</strong> Fast token output, shorter reasoning budget, used for direct factual prompts.</p>
+        <p><strong>Balanced Mode:</strong> Mixed reasoning depth and speed, default path for normal conversation and coding tasks.</p>
+        <p><strong>Deep Reasoning Mode:</strong> Extended CoT budget with self-check cycles for planning, architecture, or analytical requests.</p>
+        <p><strong>Recovery Mode:</strong> Triggered when memory pressure spikes; context is compacted and generation continues with priority retention of critical task facts.</p>
+        <p>Routing is controlled by a policy layer that monitors prompt length, entropy, token velocity, and tool-call requirements. The policy can switch modes mid-generation if the task profile changes.</p>
+        <h3>Tooling and Agent Capabilities</h3>
+        <p>KrazyKoreDenAI is designed for tool-augmented workflows. It can call external tools, parse returned outputs, and reintegrate results into a final grounded answer.</p>
+        <p><strong>Supported Tool Patterns:</strong> retrieval calls, file inspection, shell command orchestration, and stepwise verification workflows.</p>
+        <p><strong>Context Anchoring:</strong> tool outputs can be pinned in memory to avoid drift during long reasoning sessions.</p>
+        <p><strong>Error Recovery:</strong> failed tools trigger fallback plans instead of immediate task abandonment.</p>
+        <h3>Architecture Highlights</h3>
+        <p><strong>Backbone:</strong> optimized transformer with grouped attention for edge throughput.</p>
+        <p><strong>Memory Strategy:</strong> rolling summary buffers with salient-token preservation.</p>
+        <p><strong>Quantization Path:</strong> INT8 default with optional mixed precision variants for quality-sensitive deployments.</p>
+        <p><strong>Scheduler:</strong> adaptive token scheduler prioritizing early semantic structure for stable long outputs.</p>
+        <h3>Performance Targets</h3>
+        <p><strong>Cold Start:</strong> under 3 seconds on tuned Pi 5 profile.</p>
+        <p><strong>Sustained Throughput:</strong> hardware-dependent; optimized for consistent output rather than peak-only bursts.</p>
+        <p><strong>Reasoning Stability:</strong> benchmark focus on multi-step consistency and contradiction reduction.</p>
+        <p><strong>Energy Profile:</strong> edge-first tuning emphasizes low thermal load and long-session viability.</p>
+        <h3>Safety and Control</h3>
+        <p>The model is uncensored by design philosophy, but operational safety controls are still available for builders who need policy boundaries in production systems.</p>
+        <p><strong>Configurable Layers:</strong> prompt guardrails, output classifiers, and domain-specific compliance filters.</p>
+        <p><strong>Auditability:</strong> runtime mode decisions and tool usage are loggable for debugging and governance.</p>
+        <h3>Use Cases</h3>
+        <p>Best-fit scenarios include offline coding assistants, edge robotics coordination, local research copilots, and private automation workflows where cloud reliance is not acceptable.</p>
+        <h3>Roadmap</h3>
+        <p>Next milestones include stronger long-context memory, improved mode-switch policy learning, and richer tool-state persistence for complex multi-step tasks.</p>
+    </div>
+</main>
+
+<main id="krazykore" class="view">
+    <div style="margin-bottom: 2rem;"><a onclick="showView('models')" style="color:var(--accent); cursor:pointer; font-weight:800; font-size:1.2rem;">Back to Models</a></div>
+    <h2>KrazyKoreAI Specs</h2>
+    <div class="info-section">
+        <p style="color: var(--accent); font-weight: 800; font-size: 1.2rem;">EXPERIMENTAL BETA | Ultra-Light Edge Runtime</p>
+        <p>KrazyKoreAI is the compact model line focused on extreme efficiency. It exists for builders who need local AI behavior on tiny systems where memory, power, and thermals are strict constraints.</p>
+        <p><strong>Version:</strong> Experimental Beta</p>
+        <p><strong>Parameters:</strong> 1M to 5M, model-size variants by deployment target</p>
+        <p><strong>Context Window:</strong> 2K to 8K depending on variant and quantization setup</p>
+        <p><strong>Primary Goal:</strong> Keep useful reasoning alive on low-resource systems</p>
+        <p><strong>Target Hardware:</strong> Raspberry Pi Zero series, entry ARM boards, low-RAM edge devices</p>
+        <p><strong>Status:</strong> Internal testing, latency profiling, and token-quality balancing</p>
+        <h3>Design Philosophy</h3>
+        <p>This line is built around one rule: if the model cannot run where people actually have hardware, it is not useful enough. KrazyKoreAI prioritizes practical deployment over benchmark vanity.</p>
+        <p>Because of the smaller size, outputs are optimized for concise task completion, deterministic formatting, and high reliability on routine workflows.</p>
+        <h3>Runtime Profiles</h3>
+        <p><strong>Fast Reply Profile:</strong> minimal reasoning overhead for command-like prompts.</p>
+        <p><strong>Utility Profile:</strong> stable instruction following for assistant and automation usage.</p>
+        <p><strong>Micro CoT Profile:</strong> short chain reasoning for lightweight planning and debugging.</p>
+        <p><strong>Low Power Profile:</strong> aggressive compute caps for battery or passive-cooled devices.</p>
+        <h3>Core Features</h3>
+        <p><strong>Quick Start:</strong> reduced initialization overhead for faster first token response.</p>
+        <p><strong>Compact Memory Handling:</strong> summary-first context retention to avoid hard context overflow.</p>
+        <p><strong>Deterministic Prompt Contracts:</strong> stable output templates for scripts and local tooling.</p>
+        <p><strong>Edge Quantization:</strong> tuned for low precision inference with acceptable reasoning retention.</p>
+        <h3>Operational Limits</h3>
+        <p>This is not intended for heavy multi-hop reasoning at large context sizes. It is strongest in short to medium tasks, repetitive workflows, and constrained embedded settings.</p>
+        <p>When complexity crosses threshold, handoff to KrazyKoreDenAI is recommended for deeper analysis.</p>
+        <h3>Recommended Workloads</h3>
+        <p>Device commands, local scripting help, quick summarization, format conversion, lightweight chat, and offline prompt utilities.</p>
+        <h3>Engineering Notes</h3>
+        <p>Beta builds currently focus on reducing hallucination rates in low-token budgets and improving reasoning consistency under quantized execution.</p>
+        <p>Tokenizer and scheduler updates are planned to improve code-response quality in constrained memory conditions.</p>
+        <h3>Roadmap</h3>
+        <p>Upcoming work includes better long-session stability, optional retrieval hooks, and cleaner output controls for deterministic agents.</p>
+    </div>
+</main>
+
+<main id="koreden" class="view">
+    <div style="margin-bottom: 2rem;"><a onclick="showView('models')" style="color:var(--accent); cursor:pointer; font-weight:800; font-size:1.2rem;">Back to Models</a></div>
+    <h2>KoreDenAI Specs</h2>
+    <div class="info-section">
+        <p style="color: var(--accent); font-weight: 800; font-size: 1.2rem;">EXPERIMENTAL ALPHA | Multi-Modal Compute Tier</p>
+        <p>KoreDenAI is the large-scale branch of the lineup. It is built for high-compute environments where extended context, richer reasoning graphs, and multi-modal inputs are required.</p>
+        <p><strong>Version:</strong> Experimental Alpha</p>
+        <p><strong>Parameters:</strong> 4B</p>
+        <p><strong>Context Window:</strong> 64K class target with hierarchical memory flow</p>
+        <p><strong>Primary Goal:</strong> Multi-modal understanding and complex task orchestration</p>
+        <p><strong>Target Hardware:</strong> high-memory GPU workstations, multi-GPU servers, research clusters</p>
+        <p><strong>Status:</strong> Early research and pipeline prototyping</p>
+        <h3>Model Scope</h3>
+        <p>KoreDenAI is intended for advanced tasks where narrow single-pass generation fails: robotics planning, multi-source reasoning, long-form analysis, and instruction chains that need internal state continuity.</p>
+        <p>Compared to the edge models, this system can keep deeper latent structure active over longer contexts and can perform larger planning passes before final answer synthesis.</p>
+        <h3>Multi-Modal Pipeline</h3>
+        <p><strong>Input Channels:</strong> text, structured metadata, and visual embeddings.</p>
+        <p><strong>Fusion Layer:</strong> aligned cross-attention for synchronized reasoning across channels.</p>
+        <p><strong>Planning Stack:</strong> task graph creation, dependency ordering, and execution intent generation.</p>
+        <p><strong>Output Layer:</strong> actionable plans, explanations, and controller-friendly response formats.</p>
+        <h3>Reasoning Behavior</h3>
+        <p>The model uses long-chain reasoning for planning-intensive tasks. Internal checkpoints evaluate whether assumptions are still valid as new evidence arrives during generation.</p>
+        <p>For agent workflows, KoreDenAI can maintain an active plan state, revise subtasks, and regenerate partial routes without restarting the full reasoning cycle.</p>
+        <h3>Robotics and Control Orientation</h3>
+        <p><strong>Task Decomposition:</strong> converts high-level commands into ordered motor or subsystem goals.</p>
+        <p><strong>Constraint Awareness:</strong> supports boundaries such as battery, timing windows, and safety constraints.</p>
+        <p><strong>Failure Handling:</strong> proposes fallback branches when sensor, tool, or plan validation fails.</p>
+        <p><strong>Telemetry Integration:</strong> structured event streams can be consumed as context for adaptive decision updates.</p>
+        <h3>Deployment Patterns</h3>
+        <p><strong>Research Mode:</strong> highest quality path, slower responses, strong traceability for debugging.</p>
+        <p><strong>Production Mode:</strong> controlled latency with bounded planning depth.</p>
+        <p><strong>Hybrid Mode:</strong> initial planning on KoreDenAI, execution assistance delegated to lighter local models.</p>
+        <h3>Observability and Governance</h3>
+        <p>KoreDenAI supports trace logging for reasoning checkpoints, tool calls, and plan revisions. This is critical for auditability in robotics and enterprise flows.</p>
+        <p>Policy wrappers can be added to enforce domain restrictions while preserving model flexibility for custom environments.</p>
+        <h3>Benchmark Priorities</h3>
+        <p>Current optimization work prioritizes multi-step consistency, reduction of plan-fragment collapse in long contexts, and more stable multi-modal grounding.</p>
+        <p>Future benchmarking includes closed-loop robotics simulation and longer agentic workflow reliability tests.</p>
+        <h3>Roadmap</h3>
+        <p>Upcoming releases target improved visual grounding, stronger long-horizon planning, and better distributed inference efficiency across multi-GPU setups.</p>
     </div>
 </main>
 
 <footer>
-    <p>© 2026 KrazyDen AI • Created by Kanishk Sampathkumar • THANK YOU!</p>
+    <p>(c) 2026 KrazyDen AI | Created by Kanishk Sampathkumar | THANK YOU!</p>
 </footer>
 
 <script>
     const settingsWrapper = document.querySelector('.settings-wrapper');
     const themeFlyout = document.getElementById('themeFlyout');
+    const navViewLinks = document.querySelectorAll('.nav-links a[data-view]');
+
+    function applyTheme(theme) {
+        document.body.classList.remove('light');
+        if (theme === 'light') document.body.classList.add('light');
+        else if (theme === 'system' && window.matchMedia('(prefers-color-scheme: light)').matches) document.body.classList.add('light');
+        localStorage.setItem('theme', theme);
+    }
+
+    function syncActiveNav(viewId) {
+        navViewLinks.forEach(link => {
+            link.classList.toggle('active', link.dataset.view === viewId);
+        });
+    }
+
+    applyTheme(localStorage.getItem('theme') || 'dark');
+    syncActiveNav('home');
 
     settingsWrapper.addEventListener('mouseenter', () => { themeFlyout.classList.add('open'); });
     settingsWrapper.addEventListener('mouseleave', () => {
@@ -360,11 +648,7 @@
     const flyoutOptions = themeFlyout.querySelectorAll('.flyout-option');
     flyoutOptions.forEach(option => {
         option.addEventListener('click', () => {
-            const theme = option.dataset.value;
-            document.body.classList.remove('light');
-            if (theme === 'light') document.body.classList.add('light');
-            else if (theme === 'system' && window.matchMedia('(prefers-color-scheme: light)').matches) document.body.classList.add('light');
-            localStorage.setItem('theme', theme);
+            applyTheme(option.dataset.value);
             themeFlyout.classList.remove('open');
         });
     });
@@ -411,6 +695,7 @@
     function showView(viewId) {
         document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
         document.getElementById(viewId).classList.add('active');
+        syncActiveNav(viewId);
         window.scrollTo(0, 0);
     }
     function showDetail(id) { showView(id); }

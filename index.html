@@ -46,18 +46,54 @@
             transition: background 0.5s ease, color 0.5s ease;
         }
 
+        /* PROGRESS BAR AT THE TIP - UPDATED TO 12% */
+        .progress-wrapper { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            z-index: 2000; 
+            pointer-events: none; 
+        }
+        .progress-container { 
+            width: 100%; 
+            height: 5px; 
+            background: rgba(13, 71, 161, 0.3); 
+            overflow: hidden; 
+        }
+        .progress-fill { 
+            width: 0%; 
+            height: 100%; 
+            background: linear-gradient(90deg, var(--accent), var(--secondary), var(--accent)); 
+            background-size: 200% auto;
+            box-shadow: 0 0 15px var(--accent);
+            animation: fill-to-12 2s cubic-bezier(0.65, 0, 0.35, 1) forwards, gradientMove 3s linear infinite; 
+        }
+        .progress-text { 
+            position: absolute;
+            top: 8px;
+            right: 20px;
+            font-size: 0.75rem; 
+            font-weight: 800; 
+            color: var(--accent); 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(0,234,255,0.5); 
+            opacity: 0; 
+            animation: fade-in-text 0.6s ease-out 1.5s forwards; 
+        }
+        @keyframes fill-to-12 { 0% { width: 0%; } 100% { width: 12%; } }
+
         header {
             position: fixed;
-            top: 0;
+            top: 5px; 
             width: 100%;
             z-index: 1000;
             background: rgba(13,13,26,0.9);
             backdrop-filter: blur(14px);
             border-bottom: 1px solid var(--border);
         }
-        body.light header {
-            background: rgba(176,200,255,0.92);
-        }
+        body.light header { background: rgba(176,200,255,0.92); }
 
         nav {
             max-width: 1200px;
@@ -82,10 +118,7 @@
             cursor: pointer;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-        }
+        .nav-links { display: flex; gap: 2.5rem; }
         .nav-links a {
             text-decoration: none;
             color: var(--text);
@@ -95,13 +128,8 @@
         }
         .nav-links a:hover { color: var(--accent); }
 
-        /* Beautiful flyout dropdown from Settings link */
-        .settings-wrapper {
-            position: relative;
-        }
-        #settingsTrigger {
-            cursor: pointer;
-        }
+        .settings-wrapper { position: relative; }
+        #settingsTrigger { cursor: pointer; }
         .theme-flyout {
             position: absolute;
             top: 100%;
@@ -120,11 +148,7 @@
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             z-index: 1001;
         }
-        .theme-flyout.open {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            pointer-events: auto;
-        }
+        .theme-flyout.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
         .flyout-title {
             padding: 1.3rem 1.8rem;
             background: linear-gradient(90deg, var(--accent), var(--secondary));
@@ -147,10 +171,6 @@
             color: var(--accent);
             padding-left: 2.2rem;
         }
-        .flyout-option.active {
-            background: rgba(0,234,255,0.15);
-            font-weight: 600;
-        }
         .flyout-github {
             padding: 1.2rem 1.8rem;
             text-align: center;
@@ -162,34 +182,21 @@
             text-decoration: none;
             transition: all 0.3s ease;
         }
-        .flyout-github a:hover {
-            color: #fff;
-            text-shadow: 0 0 10px var(--accent-glow);
-        }
 
-        /* Hero & progress bar */
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; }
         .hero-logo-wrapper { position: relative; display: inline-block; }
         .hero-logo-wrapper h1 { font-family: 'Montserrat', sans-serif; font-size: clamp(3.5rem, 11vw, 7rem); font-weight: 900; margin-bottom: 1.2rem; letter-spacing: -2.5px; background: linear-gradient(90deg, var(--accent), var(--secondary), #00ffaa); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: glow 2s ease-in-out infinite alternate; position: relative; z-index: 2; }
-        .progress-wrapper { position: absolute; top: 8%; right: 3%; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; width: 160px; transform: rotate(45deg); transform-origin: top right; z-index: 1; pointer-events: none; }
-        .progress-container { width: 100%; height: 8px; background: #0d47a1; border-radius: 4px; overflow: hidden; box-shadow: 0 0 10px rgba(33,150,243,0.5); }
-        .progress-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #2196f3, #64b5f6, #2196f3); animation: fill-to-12 2s ease-out forwards; }
-        .progress-text { font-size: 0.85rem; font-weight: 600; color: #64b5f6; text-shadow: 0 0 6px rgba(33,150,243,0.7); white-space: nowrap; opacity: 0; animation: fade-in-text 0.6s ease-out 2s forwards; }
-        @keyframes fill-to-12 { 0% { width: 0%; } 100% { width: 12%; } }
+        
         @keyframes fade-in-text { 0% { opacity: 0; transform: translateY(-4px); } 100% { opacity: 1; transform: translateY(0); } }
         @keyframes glow { from { filter: drop-shadow(0 0 10px var(--accent-glow)); } to { filter: drop-shadow(0 0 20px var(--accent-glow)); } }
 
-        /* Typewriter */
         #typewriter-container { display:flex; align-items:center; font-size:clamp(1.2rem,4vw,2rem); height:3.5rem; font-weight:800; }
         #typewriter { background:linear-gradient(45deg,#00ffff,#ff00ff,#00ffff); background-size:200% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; animation:gradientMove 3s linear infinite; position:relative; display:inline-block; padding-right:14px; }
         #typewriter::after { content:''; position:absolute; right:0; top:50%; transform:translateY(-50%); width:6px; height:1.15em; background:linear-gradient(315deg,#ff0000,#ff8800,#ffff00,#00ff00,#00ffff,#0088ff,#ff00ff); background-size:100% 700%; animation:rainbowFlow 5.5s linear infinite; box-shadow:0 0 12px rgba(255,255,255,0.8); border-radius:3px; }
         @keyframes rainbowFlow { 0%{background-position:0% 0%} 100%{background-position:0% 100%} }
         @keyframes gradientMove { 0%{background-position:0% center} 100%{background-position:200% center} }
 
-        /* Q&A section - bigger + 4:3 ratio */
-        #contact {
-            padding: 6rem 2rem;
-        }
+        #contact { padding: 6rem 2rem; }
         .typeform-embed {
             max-width: 900px;
             margin: 4rem auto;
@@ -202,22 +209,9 @@
             position: relative;
             overflow: hidden;
         }
-        .typeform-embed::before {
-            content: "";
-            display: block;
-            padding-top: 75%; /* 4:3 ratio (height = 75% of width) */
-        }
-        .typeform-embed iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 20px;
-        }
+        .typeform-embed::before { content: ""; display: block; padding-top: 75%; }
+        .typeform-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 20px; }
 
-        /* Rest of styles unchanged */
         .btn { display:inline-block; padding:1.4rem 4rem; background:transparent; color:var(--accent); font-weight:800; font-size:1.3rem; border:3px solid var(--accent); border-radius:60px; transition:all 0.5s ease; box-shadow:0 0 30px var(--accent-glow),inset 0 0 20px rgba(0,255,255,0.2); position:relative; overflow:hidden; cursor:pointer; text-transform:uppercase; letter-spacing:2px; margin-top:2rem; }
         .btn::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(0,255,255,0.3),transparent); transition:0.7s; }
         .btn:hover::before { left:100%; }
@@ -234,13 +228,25 @@
         .model-card.featured { transform:scale(1.05); border:2px solid var(--accent); box-shadow:0 20px 50px rgba(0,255,255,0.3); }
         .model-card:hover { border-color:var(--accent); transform:translateY(-12px); box-shadow:0 25px 50px rgba(0,0,0,0.45); }
         .model-card h3 { font-family:'Montserrat',sans-serif; font-size:2.1rem; margin-bottom:1rem; color:var(--accent); }
-        .model-card.featured h3 { font-size:2.5rem; }
         .model-tag { display:inline-block; background:rgba(0,255,255,0.12); color:var(--accent); padding:0.4rem 1.2rem; border-radius:24px; font-size:0.85rem; font-weight:800; margin-bottom:1.5rem; }
+
+        .info-section { background:var(--card); padding:3rem; border-radius:30px; border:1px solid var(--border); box-shadow:0 20px 50px rgba(0,0,0,0.3); margin-top:2rem; }
+        .info-section h3 { font-family:'Montserrat', sans-serif; font-size:2.2rem; color:var(--accent); margin-bottom:1.5rem; }
+        .info-section p { font-size:1.15rem; margin-bottom:1.5rem; color:var(--text); }
+        .highlight-box { background:rgba(0,234,255,0.05); border-left:4px solid var(--accent); padding:1.5rem; margin:2rem 0; font-style:italic; }
 
         footer { margin-top:auto; padding:4rem 2rem 3rem; text-align:center; color:var(--text-muted); font-size:1rem; background:linear-gradient(90deg,var(--accent),var(--secondary)); background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:1px; font-weight:600; }
     </style>
 </head>
 <body>
+
+<div class="progress-wrapper">
+    <div class="progress-container">
+        <div class="progress-fill"></div>
+    </div>
+    <div class="progress-text">12% models completed</div>
+</div>
+
 <header>
     <nav>
         <div onclick="showView('home')" class="logo">KRAZYDEN AI</div>
@@ -269,12 +275,6 @@
 <main id="home" class="view active">
     <section class="hero">
         <div class="hero-logo-wrapper">
-            <div class="progress-wrapper">
-                <div class="progress-container">
-                    <div class="progress-fill"></div>
-                </div>
-                <div class="progress-text">website 12% complete!</div>
-            </div>
             <h1>KrazyDen AI</h1>
         </div>
         <div id="typewriter-container">
@@ -299,7 +299,7 @@
         <div class="model-card featured" onclick="showDetail('krazykoreden')">
             <div class="model-tag">FOCUS - ALPHA</div>
             <h3>KrazyKoreDenAI</h3>
-            <p>Our flagship experimental model — 64M params, CoT reasoning, tool use. Click for full specs.</p>
+            <p>Our flagship experimental model — 64M params, CoT reasoning, tool use. Click for specs.</p>
         </div>
         <div class="model-card" onclick="showDetail('krazykore')">
             <div class="model-tag">EXPERIMENTAL - BETA</div>
@@ -314,206 +314,80 @@
     </div>
 </main>
 
+<main id="about" class="view">
+    <h2>About KrazyDen AI</h2>
+    <div class="info-section">
+        <h3>The Philosophy of Krazy Intelligence</h3>
+        <p>KrazyDen AI isn't just another tech project; it's a rebellion against the "Black Box" of modern artificial intelligence. We believe that true intelligence shouldn't be locked behind massive server farms or corporate filters. It should be <strong>wild, efficient, and open.</strong></p>
+        
+        <div class="highlight-box">
+            "We aren't building just an AI; we're building a new way for silicon to think—from the smallest Raspberry Pi to the most complex robot."
+        </div>
+
+        <p>Our mission is to achieve <strong>Reasoning at the Edge.</strong> By optimizing every single parameter, we enable high-level logic (CoT) to run on devices that other models wouldn't even boot on. KrazyDen is built from the ground up to be uncensored, lightweight, and aggressively innovative.</p>
+        
+        <h3 style="margin-top:2rem;">Why "Krazy"?</h3>
+        <p>Because everyone said it was impossible to run Chain-of-Thought reasoning on a micro-controller. We did it anyway. Because we value transparency and experimentation over safe, boring algorithms. We embrace the chaos of rapid iteration to find the next breakthrough.</p>
+    </div>
+</main>
+
+<main id="about-me" class="view">
+    <h2>The Creator</h2>
+    <div class="info-section">
+        <h3>Kanishk Sampathkumar</h3>
+        <p>Hi, I'm Kanishk. I'm the lead architect and founder behind KrazyDen AI. I started this journey because I was tired of the limitations placed on modern AI—the high costs, the lack of privacy, and the massive hardware requirements.</p>
+        
+        <p>My background is rooted in deep system optimization and neural architecture. I don't just want to build AI that talks; I want to build AI that <strong>understands</strong> how to interact with the world around it—whether that's through a Linux terminal or a robotic arm.</p>
+
+        <div class="highlight-box">
+            "The goal has always been simple: empower the individual. Give everyone the power of a digital brain that they own, control, and can run anywhere."
+        </div>
+
+        <h3 style="margin-top:2rem;">Current Focus</h3>
+        <p>Right now, I'm obsessively refining the <strong>KrazyKoreDen</strong> engine, pushing our 12% model completion toward a full-scale release by 2026. When I'm not coding neural layers, I'm usually figuring out how to squeeze more performance out of Ubuntu-based edge devices.</p>
+        
+        <button class="btn" style="margin-top:1rem; padding: 1rem 2rem; font-size: 1rem;" onclick="window.open('https://github.com/kengineerog', '_blank')">Follow My Work</button>
+    </div>
+</main>
+
 <main id="krazykoreden" class="view">
-    <div style="margin-bottom: 2rem;">
-        <a onclick="showView('models')" style="color:var(--accent); cursor:pointer; font-weight:800; font-size:1.2rem;">← Back to Models</a>
-    </div>
-    <h2>KrazyKoreDenAI Technical Sheet</h2>
-    <div style="background:var(--card); padding:2rem; border-radius:20px; border:1px solid var(--border);">
-        <p style="color: var(--accent); font-weight: 800; font-size: 1.2rem; margin-bottom: 1.5rem;">!IMPORTANT! : Demo will come soon! (Expected near March of 2026)</p>
-       
-        <p>Experimental parameter range: 64 Million. Optimized for edge computing and micro-tasks.</p>
-       
-        <h3 style="color: var(--accent); margin-top: 1.5rem; margin-bottom: 1rem;">Key Features</h3>
-        <ul style="margin-top:1rem; list-style-type: disc; padding-left: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
-            <li style="margin-bottom: 0.8rem;"><strong>Uncensored Model</strong></li>
-            <li style="margin-bottom: 0.8rem;"><strong>CoT Reasoning:</strong> Chain of Thought reasoning model</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Ultra Lightweight:</strong> Achieves ~50 tokens/second on Raspberry Pi Zero 2 W</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Code Organization:</strong> Can organize and use proper indentation</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Edge Device Compatible:</strong> Runs on lightweight devices with minimal computational power</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Memory Efficient:</strong> Uses only 128-256MB of RAM</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Smart Resource Management:</strong> Uses smart resource-light transformer system that saves RAM when possible</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Dynamic Context Handling:</strong> Saves model context in RAM, then flushes to storage. When context exceeds RAM capacity, it intelligently retrieves data and provides context to model, effectively using less RAM</li>
-            <li style="margin-bottom: 0.8rem;"><strong>MCP Integration:</strong> Uses MCP tools efficiently and properly as much as possible</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Code Execution:</strong> Can efficiently execute code and is optimized for Ubuntu Linux</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Tool Usage:</strong> Can use tools</li>
-        </ul>
-       
-        <h3 style="color: var(--accent); margin-top: 1.5rem; margin-bottom: 1rem;">Triple Running Modes</h3>
-        <ul style="margin-top:1rem; list-style-type: disc; padding-left: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
-            <li style="margin-bottom: 0.8rem;"><strong>Fully Local:</strong> Run completely on your device</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Fully Cloud:</strong> Leverage cloud computing power</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Hybrid (Local + Cloud):</strong> Run mostly local with cloud support when:
-                <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
-                    <li>Local device can't keep up with request volume</li>
-                    <li>Processing audio/video files</li>
-                    <li>And more...</li>
-                </ul>
-            </li>
-        </ul>
-       
-        <h3 style="color: var(--accent); margin-top: 1.5rem; margin-bottom: 1rem;">In Development</h3>
-        <ul style="margin-top:1rem; list-style-type: disc; padding-left: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
-            <li style="margin-bottom: 0.8rem;"><strong>Integrated Voice:</strong> Talking and thinking capabilities</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Extended Training:</strong> Training AI on how to use Windows/Mac</li>
-        </ul>
-       
-        <p style="margin-top: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
-            <strong>Performance:</strong> Achieves state-of-the-art results on benchmarks* while maintaining low latency and energy efficiency.
-            <span style="color: var(--text-muted); font-size: 0.95rem;">*Keep in mind that this is still in development, but it's kinda smart</span>
-        </p>
+    <div style="margin-bottom: 2rem;"><a onclick="showView('models')" style="color:var(--accent); cursor:pointer; font-weight:800; font-size:1.2rem;">← Back to Models</a></div>
+    <h2>KrazyKoreDenAI Specs</h2>
+    <div class="info-section">
+        <p style="color: var(--accent); font-weight: 800; font-size: 1.2rem;">!IMPORTANT! : Demo Expected March 2026</p>
+        <p>64 Million parameters optimized for Raspberry Pi Zero 2 W. Featuring Chain-of-Thought reasoning and smart resource management.</p>
     </div>
 </main>
-
-<main id="krazykore" class="view">
-    <div style="margin-bottom: 2rem;">
-        <a onclick="showView('models')" style="color:var(--accent); cursor:pointer; font-weight:800;">← Back to Models</a>
-    </div>
-    <h2>KrazyKoreAI Technical Sheet</h2>
-    <div style="background:var(--card); padding:2rem; border-radius:20px; border:1px solid var(--border);">
-        <p style="color: var(--accent); font-weight: 800; font-size: 1.2rem; margin-bottom: 1.5rem;">!IMPORTANT! : Demo will come soon! (Expected near March of 2026)</p>
-       
-        <p>Experimental parameter range: 1~5 Million. Optimized for edge computing and micro-tasks.</p>
-       
-        <h3 style="color: var(--accent); margin-top: 1.5rem; margin-bottom: 1rem;">Key Features</h3>
-        <ul style="margin-top:1rem; list-style-type: disc; padding-left: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
-            <li style="margin-bottom: 0.8rem;"><strong>Uncensored Model</strong></li>
-            <li style="margin-bottom: 0.8rem;"><strong>Intelligent Reasoning:</strong> Can switch between thinking and non-thinking modes based on question automatically</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Ultra Lightweight:</strong> Achieves ~50 tokens/second on Raspberry Pi Zero 2 W</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Code Organization:</strong> Can organize and use proper indentation</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Edge Device Compatible:</strong> Runs on lightweight devices with minimal computational power</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Memory Efficient:</strong> Uses only 128-256MB of RAM</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Smart Resource Management:</strong> Uses smart resource-light transformer system that saves RAM when possible</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Dynamic Context Handling:</strong> Saves model context in RAM, then flushes to storage. When context exceeds RAM capacity, it intelligently retrieves data and provides context to model, effectively using less RAM</li>
-            <li style="margin-bottom: 0.8rem;"><strong>MCP Integration:</strong> Uses MCP tools efficiently and properly as much as possible</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Code Execution:</strong> Can efficiently execute code and is optimized for Ubuntu Linux</li>
-        </ul>
-       
-        <h3 style="color: var(--accent); margin-top: 1.5rem; margin-bottom: 1rem;">Triple Running Modes</h3>
-        <ul style="margin-top:1rem; list-style-type: disc; padding-left: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
-            <li style="margin-bottom: 0.8rem;"><strong>Fully Local:</strong> Run completely on your device</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Fully Cloud:</strong> Leverage cloud computing power</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Hybrid (Local + Cloud):</strong> Run mostly local with cloud support when:
-                <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
-                    <li>Local device can't keep up with request volume</li>
-                    <li>Processing audio/video files</li>
-                    <li>And more...</li>
-                </ul>
-            </li>
-        </ul>
-       
-        <h3 style="color: var(--accent); margin-top: 1.5rem; margin-bottom: 1rem;">In Development</h3>
-        <ul style="margin-top:1rem; list-style-type: disc; padding-left: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
-            <li style="margin-bottom: 0.8rem;"><strong>Integrated Voice:</strong> Talking and thinking capabilities</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Extended Training:</strong> Training AI on how to use Windows/Mac</li>
-        </ul>
-       
-        <p style="margin-top: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
-            <strong>Performance:</strong> Achieves state-of-the-art results on benchmarks* while maintaining low latency and energy efficiency.
-            <span style="color: var(--text-muted); font-size: 0.95rem;">*Keep in mind that this is still in development, but it's kinda smart</span>
-        </p>
-    </div>
-</main>
-
-<main id="koreden" class="view">
-    <div style="margin-bottom: 2rem;">
-        <a onclick="showView('models')" style="color:var(--accent); cursor:pointer; font-weight:800;">← Back to Models</a>
-    </div>
-    <h2>KoreDenAI Technical Sheet</h2>
-    <div style="background:var(--card); padding:2rem; border-radius:20px; border:1px solid var(--border);">
-        <p>A powerful multi-modal AI model designed for autonomous robotics and heavy computational tasks.</p>
-       
-        <h3 style="color: var(--accent); margin-top: 1.5rem; margin-bottom: 1rem;">Key Specifications</h3>
-        <ul style="margin-top:1rem; list-style-type: disc; padding-left: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
-            <li style="margin-bottom: 0.8rem;"><strong>Model Architecture:</strong> 4B parameter model with thinking capabilities</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Multi-Modal Input:</strong> Accepts video, audio, and text as input for variety of applications</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Hardware Requirements:</strong> Made for heavier, more powerful machines</li>
-            <li style="margin-bottom: 0.8rem;"><strong>MCP Integration:</strong> Can use MCP tools properly and efficiently</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Code Organization:</strong> Can do proper indentation and code formatting</li>
-            <li style="margin-bottom: 0.8rem;"><strong>Primary Use Case:</strong> Mainly designed for autonomous robotics applications</li>
-        </ul>
-       
-        <h3 style="color: var(--accent); margin-top: 1.5rem; margin-bottom: 1rem;">In Development</h3>
-        <ul style="margin-top:1rem; list-style-type: disc; padding-left: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
-            <li style="margin-bottom: 0.8rem;"><strong>Multi-Modal Output:</strong> Outputting audio, video, and robotic movement commands</li>
-            <li style="margin-bottom: 0.8rem;"><strong>MCP Server Training:</strong> Training on how to properly use MCP servers</li>
-        </ul>
-    </div>
-</main>
-
-<!-- Your other views (about, about-me) remain unchanged -->
 
 <footer>
-    <p>© 2026 KrazyDen AI • Made with love, chaos, and zero sleep • THANK YOU!</p>
+    <p>© 2026 KrazyDen AI • Created by Kanishk Sampathkumar • THANK YOU!</p>
 </footer>
 
 <script>
-    // Flyout dropdown logic - open on hover + click toggle
     const settingsTrigger = document.getElementById('settingsTrigger');
     const themeFlyout = document.getElementById('themeFlyout');
 
-    // Hover to open
-    settingsTrigger.addEventListener('mouseenter', () => {
-        themeFlyout.classList.add('open');
-    });
-
-    // Mouse leave to close (delay to allow moving to flyout)
+    settingsTrigger.addEventListener('mouseenter', () => { themeFlyout.classList.add('open'); });
     settingsTrigger.addEventListener('mouseleave', () => {
-        setTimeout(() => {
-            if (!themeFlyout.matches(':hover')) {
-                themeFlyout.classList.remove('open');
-            }
-        }, 100);
+        setTimeout(() => { if (!themeFlyout.matches(':hover')) themeFlyout.classList.remove('open'); }, 100);
     });
+    themeFlyout.addEventListener('mouseenter', () => { themeFlyout.classList.add('open'); });
+    themeFlyout.addEventListener('mouseleave', () => { themeFlyout.classList.remove('open'); });
 
-    // Keep open when hovering over flyout
-    themeFlyout.addEventListener('mouseenter', () => {
-        themeFlyout.classList.add('open');
-    });
+    settingsTrigger.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); themeFlyout.classList.toggle('open'); });
 
-    themeFlyout.addEventListener('mouseleave', () => {
-        themeFlyout.classList.remove('open');
-    });
-
-    // Click toggles (for mobile / forced open)
-    settingsTrigger.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        themeFlyout.classList.toggle('open');
-    });
-
-    // Theme switching
     const flyoutOptions = themeFlyout.querySelectorAll('.flyout-option');
     flyoutOptions.forEach(option => {
         option.addEventListener('click', () => {
             const theme = option.dataset.value;
             document.body.classList.remove('light');
-            if (theme === 'light') {
-                document.body.classList.add('light');
-            } else if (theme === 'system') {
-                if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-                    document.body.classList.add('light');
-                }
-            }
+            if (theme === 'light') document.body.classList.add('light');
+            else if (theme === 'system' && window.matchMedia('(prefers-color-scheme: light)').matches) document.body.classList.add('light');
             localStorage.setItem('theme', theme);
             themeFlyout.classList.remove('open');
         });
     });
 
-    // Close when clicking elsewhere
-    document.addEventListener('click', e => {
-        if (!settingsTrigger.contains(e.target) && !themeFlyout.contains(e.target)) {
-            themeFlyout.classList.remove('open');
-        }
-    });
-
-    // Restore saved theme
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    if (savedTheme === 'light' || (savedTheme === 'system' && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-        document.body.classList.add('light');
-    }
-
-    // Typewriter
     const phrases = [
         "Built from Scratch", "Open-Source", "Dynamic", "Ready to Rock.", "Auto Scaling",
         "Runs on anything*", "Efficient", "Fast and Accurate", "Next-Gen Intelligence",
@@ -538,47 +412,28 @@
         "Encrypted Thought", "Safe & Sound", "Clean Architecture", "The Alpha Choice",
         "Vibrant Community", "Collaborative Spirit", "Open Innovation", "Rapid Iteration",
         "Constant Improvement", "Daily Updates", "Always Learning", "Never Sleeping",
-        "Pure Innovation", "Simply Krazy", "Intelligence Unleashed", "The Den Awaits."
+        "Pure Innovation", "Simply Krazy", "Intelligence Unleashed", "The Den Awaits." 
     ];
     let i = 0, j = 0, current = [], deleting = false;
     const el = document.getElementById('typewriter');
     function typeLoop() {
         const full = phrases[i];
         el.textContent = current.join('');
-       
-        if (!deleting && j < full.length) {
-            current.push(full[j]);
-            j++;
-        } else if (deleting && j > 0) {
-            current.pop();
-            j--;
-        } else if (j === full.length) {
-            setTimeout(() => { deleting = true; typeLoop(); }, 2000);
-            return;
-        } else if (deleting && j === 0) {
-            deleting = false;
-            i = (i + 1) % phrases.length;
-        }
-       
-        const speed = deleting ? 30 : 70;
-        setTimeout(typeLoop, speed);
+        if (!deleting && j < full.length) { current.push(full[j]); j++; }
+        else if (deleting && j > 0) { current.pop(); j--; }
+        else if (j === full.length) { setTimeout(() => { deleting = true; typeLoop(); }, 2000); return; }
+        else if (deleting && j === 0) { deleting = false; i = (i + 1) % phrases.length; }
+        setTimeout(typeLoop, deleting ? 30 : 70);
     }
-   
-    window.onload = () => {
-        setTimeout(typeLoop, 500);
-    };
+    window.onload = () => { setTimeout(typeLoop, 500); };
 
-    // Navigation
     function showView(viewId) {
         document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
         document.getElementById(viewId).classList.add('active');
         window.scrollTo(0, 0);
     }
     function showDetail(id) { showView(id); }
-    function scrollToContact() {
-        showView('home');
-        setTimeout(() => document.getElementById('contact').scrollIntoView({behavior:'smooth'}), 100);
-    }
+    function scrollToContact() { showView('home'); setTimeout(() => document.getElementById('contact').scrollIntoView({behavior:'smooth'}), 100); }
 </script>
 </body>
 </html>

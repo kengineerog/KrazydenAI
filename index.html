@@ -429,6 +429,288 @@
 
         #contact { padding: 6rem 2rem; }
         #contact, #capabilities { scroll-margin-top: 130px; }
+        .adaptive-cascade-section {
+            padding: 1.4rem 0 2.2rem;
+        }
+        .cascade-shell {
+            border: 1px solid rgba(86, 123, 201, 0.3);
+            border-radius: 24px;
+            background: linear-gradient(165deg, rgba(7, 14, 27, 0.82), rgba(12, 22, 44, 0.72));
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+            padding: clamp(1rem, 2vw, 1.4rem);
+            backdrop-filter: blur(8px);
+        }
+        body.light .cascade-shell {
+            background: linear-gradient(165deg, rgba(236, 244, 255, 0.86), rgba(241, 249, 255, 0.7));
+            border-color: rgba(122, 153, 219, 0.42);
+            box-shadow: 0 15px 34px rgba(40, 70, 120, 0.12);
+        }
+        .cascade-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+        .cascade-title {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.1rem, 2.6vw, 1.5rem);
+            color: var(--text);
+            letter-spacing: 0.25px;
+        }
+        .cascade-pill {
+            border: 1px solid rgba(88, 129, 212, 0.48);
+            border-radius: 999px;
+            font-size: 0.72rem;
+            letter-spacing: 0.4px;
+            font-weight: 800;
+            color: #c7deff;
+            padding: 0.33rem 0.7rem;
+            background: rgba(16, 35, 67, 0.72);
+            white-space: nowrap;
+        }
+        .cascade-pill.demo {
+            border-color: rgba(255, 190, 101, 0.52);
+            background: rgba(77, 44, 1, 0.65);
+            color: #ffe0b0;
+        }
+        body.light .cascade-pill {
+            background: rgba(255,255,255,0.78);
+            color: #244a93;
+            border-color: rgba(86, 123, 201, 0.42);
+        }
+        body.light .cascade-pill.demo {
+            color: #8a3f00;
+            border-color: rgba(194, 117, 33, 0.45);
+            background: rgba(255, 224, 187, 0.65);
+        }
+        .cascade-subtitle {
+            margin: 0 0 1rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.45;
+        }
+        .cascade-grid {
+            display: grid;
+            grid-template-columns: 1.35fr 1fr;
+            gap: 0.9rem;
+        }
+        .cascade-panel {
+            border: 1px solid rgba(104, 138, 210, 0.24);
+            border-radius: 16px;
+            background: rgba(6, 12, 22, 0.62);
+            padding: 0.85rem 0.9rem;
+        }
+        body.light .cascade-panel {
+            background: rgba(255, 255, 255, 0.72);
+            border-color: rgba(86, 123, 201, 0.25);
+        }
+        .cascade-resource-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.5rem;
+        }
+        .cascade-resource-head h4 {
+            margin: 0;
+            font-size: 0.88rem;
+            color: #dce9ff;
+            letter-spacing: 0.2px;
+        }
+        body.light .cascade-resource-head h4 { color: #284276; }
+        .cascade-resource-value {
+            font-size: 1.16rem;
+            font-weight: 800;
+            color: #32dcff;
+            min-width: 58px;
+            text-align: right;
+        }
+        .cascade-resource-track {
+            height: 16px;
+            position: relative;
+            border-radius: 999px;
+            overflow: hidden;
+            border: 1px solid rgba(111, 141, 212, 0.35);
+            background: linear-gradient(120deg, rgba(255, 89, 117, 0.26), rgba(255, 186, 87, 0.18), rgba(26, 217, 145, 0.2));
+            margin-bottom: 0.68rem;
+        }
+        .cascade-resource-track::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 35%, rgba(255, 255, 255, 0.32) 48%, transparent 65%);
+            opacity: 0.6;
+            pointer-events: none;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2));
+            animation: cascadeBar 2.4s linear infinite;
+            transform: skewX(-6deg) translateX(-80%);
+        }
+        .cascade-resource-fill {
+            width: 0%;
+            height: 100%;
+            transition: width 420ms ease;
+            background: linear-gradient(120deg, #ff5975, #ffbc58 42%, #1ad991);
+            box-shadow: 0 0 14px rgba(50, 220, 255, 0.38);
+            transform: skewX(-6deg);
+        }
+        .cascade-scan {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 52px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+            pointer-events: none;
+            animation: cascadeScan 2.6s linear infinite;
+            transform: skewX(-6deg) translateX(-6px);
+        }
+        @keyframes cascadeScan {
+            from { transform: skewX(-6deg) translateX(-60px); }
+            to { transform: skewX(-6deg) translateX(1100px); }
+        }
+        @keyframes cascadeBar {
+            from { transform: skewX(-6deg) translateX(-120%); }
+            to { transform: skewX(-6deg) translateX(120%); }
+        }
+        .cascade-mode-strip {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.45rem;
+            margin-bottom: 0.7rem;
+        }
+        .cascade-mode-chip {
+            border: 1px solid rgba(116, 147, 210, 0.35);
+            border-radius: 999px;
+            text-align: center;
+            color: #9eb5d8;
+            font-size: 0.69rem;
+            font-weight: 700;
+            padding: 0.32rem 0.46rem;
+            transition: all 360ms ease;
+        }
+        .cascade-mode-chip.active {
+            border-color: transparent;
+            color: #07131f;
+            background: linear-gradient(90deg, #34d9ff, #74e7ff);
+            box-shadow: 0 0 14px rgba(52, 217, 255, 0.4);
+        }
+        .cascade-metrics {
+            display: grid;
+            gap: 0.48rem;
+            margin-bottom: 0.7rem;
+        }
+        .cascade-metric-row {
+            display: grid;
+            grid-template-columns: 86px 1fr 58px;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.8rem;
+        }
+        .cascade-metric-label {
+            color: #9fb4d7;
+            font-weight: 700;
+        }
+        body.light .cascade-metric-label { color: #446393; }
+        .cascade-mini-track {
+            height: 8px;
+            border-radius: 999px;
+            overflow: hidden;
+            background: rgba(81, 108, 160, 0.35);
+        }
+        .cascade-mini-fill {
+            width: 0%;
+            height: 100%;
+            transition: width 360ms ease;
+            background: linear-gradient(90deg, #905fff, #32dcff);
+        }
+        .cascade-metric-value {
+            text-align: right;
+            color: #dbe8ff;
+            font-weight: 800;
+        }
+        body.light .cascade-metric-value { color: #1f365d; }
+        .cascade-status,
+        .cascade-reason {
+            margin: 0;
+            line-height: 1.43;
+        }
+        .cascade-status {
+            color: var(--text);
+            min-height: 2.7em;
+            margin-bottom: 0.35rem;
+        }
+        .cascade-reason {
+            color: #9db4da;
+            border-top: 1px solid rgba(116, 147, 210, 0.24);
+            padding-top: 0.4rem;
+            min-height: 2.8em;
+            font-size: 0.85rem;
+        }
+        body.light .cascade-reason { color: #476899; border-top-color: rgba(86, 123, 201, 0.25); }
+        .cascade-ladder-title {
+            margin: 0 0 0.55rem;
+            font-size: 0.88rem;
+            color: #dce9ff;
+        }
+        body.light .cascade-ladder-title { color: #284276; }
+        .cascade-ladder {
+            list-style: none;
+            display: grid;
+            gap: 0.44rem;
+            margin: 0;
+            padding: 0;
+        }
+        .cascade-model {
+            border: 1px solid rgba(116, 147, 210, 0.25);
+            border-radius: 12px;
+            background: rgba(11, 18, 34, 0.48);
+            padding: 0.58rem 0.66rem;
+            display: grid;
+            grid-template-columns: 30px 1fr;
+            gap: 0.5rem;
+            align-items: center;
+            opacity: 0.5;
+            transform: scale(0.995);
+            transition: opacity 360ms ease, transform 360ms ease, border-color 360ms ease, box-shadow 360ms ease, background 360ms ease;
+        }
+        body.light .cascade-model {
+            background: rgba(255,255,255,0.55);
+            border-color: rgba(86, 123, 201, 0.24);
+        }
+        .cascade-model-icon {
+            text-align: center;
+            font-size: 1rem;
+        }
+        .cascade-model strong {
+            display: block;
+            color: #d8e7ff;
+            font-size: 0.88rem;
+            letter-spacing: 0.2px;
+        }
+        .cascade-model span {
+            color: #859cc1;
+            font-size: 0.72rem;
+        }
+        body.light .cascade-model strong { color: #1f365d; }
+        body.light .cascade-model span { color: #53709f; }
+        .cascade-model.active {
+            opacity: 1;
+            transform: scale(1);
+            border-color: rgba(52, 217, 255, 0.72);
+            background: linear-gradient(135deg, rgba(19, 43, 66, 0.86), rgba(27, 36, 65, 0.74));
+            box-shadow: 0 0 18px rgba(52, 217, 255, 0.28), inset 0 0 14px rgba(52, 217, 255, 0.12);
+            animation: cascadePulse 2.1s ease-in-out infinite;
+        }
+        body.light .cascade-model.active {
+            background: linear-gradient(135deg, rgba(217, 236, 255, 0.95), rgba(222, 239, 255, 0.88));
+            box-shadow: 0 0 16px rgba(42, 126, 255, 0.2), inset 0 0 10px rgba(42, 126, 255, 0.1);
+        }
+        @keyframes cascadePulse {
+            0%, 100% { box-shadow: 0 0 12px rgba(52, 217, 255, 0.22), inset 0 0 12px rgba(52, 217, 255, 0.1); }
+            50% { box-shadow: 0 0 22px rgba(52, 217, 255, 0.45), inset 0 0 18px rgba(52, 217, 255, 0.16); }
+        }
         .home-cards-section {
             padding: 3rem 0 1rem;
         }
@@ -458,6 +740,10 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+        }
+        .demo-card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.85rem;
         }
         .demo-card::before {
             content: "";
@@ -992,6 +1278,107 @@
             display: grid;
             gap: 0.35rem;
         }
+        .notification-stack {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.35rem;
+            pointer-events: none;
+            z-index: 1500;
+        }
+        .notification {
+            pointer-events: auto;
+            width: min(320px, 92vw);
+            border-radius: 16px;
+            background: rgba(5, 20, 38, 0.95);
+            border: 1px solid rgba(40, 216, 144, 0.6);
+            box-shadow: 0 20px 36px rgba(0, 0, 0, 0.28);
+            padding: 0.9rem;
+            color: #ecffef;
+            font-weight: 600;
+            transition: margin 0.35s ease, transform 0.35s ease, opacity 0.35s ease;
+            display: grid;
+            gap: 0.35rem;
+            margin-top: 4px;
+            transform: translateY(-6px) scale(0.98);
+        }
+        .notification.pop {
+            animation: notificationPop 0.35s ease forwards;
+        }
+        .notification.closing {
+            opacity: 0;
+            transform: translateY(-12px) scale(0.96);
+        }
+        .notification.theme {
+            background: rgba(34, 44, 68, 0.95);
+            border-color: rgba(255, 186, 87, 0.7);
+        }
+        .notification.navigation {
+            background: rgba(6, 29, 36, 0.95);
+            border-color: rgba(36, 142, 255, 0.6);
+        }
+        .notification-stack:not(:hover) .notification:not(:first-child) {
+            margin-top: -30px;
+            opacity: 0.5;
+        }
+        .notification-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .notification-text {
+            flex: 1;
+            color: inherit;
+            font-weight: 700;
+        }
+        .notification-close {
+            border: none;
+            background: transparent;
+            font-size: 1.4rem;
+            color: #ffb1b1;
+            cursor: pointer;
+            font-weight: 700;
+            padding: 0;
+            line-height: 1;
+        }
+        .notification-close:focus-visible {
+            outline: 2px solid rgba(255, 177, 177, 0.8);
+            outline-offset: 3px;
+        }
+        .notification-progress-track {
+            height: 4px;
+            width: 100%;
+            border-radius: 999px;
+            background: rgba(34, 197, 94, 0.2);
+            overflow: hidden;
+        }
+        .notification-progress-bar {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(34, 197, 94, 0.8), rgba(16, 185, 129, 0.9));
+        }
+        .notification-progress-bar.running {
+            animation: progressBar 5s linear forwards;
+        }
+        .notification-progress-bar.stopped {
+            animation: none;
+            width: 0;
+        }
+        @keyframes progressBar {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+        @keyframes notificationPop {
+            0% { opacity: 0; transform: translateY(0) scale(0.96); }
+            80% { opacity: 1; transform: translateY(-4px) scale(1.02); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
         .palette-item {
             display: flex;
             justify-content: space-between;
@@ -1044,6 +1431,22 @@
             pointer-events: none;
             transition: opacity 0.2s ease, transform 0.2s ease;
             overflow: hidden;
+        }
+        .recent-panel .recent-close {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            border: none;
+            background: transparent;
+            color: #ff4f5a;
+            font-size: 1.2rem;
+            font-weight: 800;
+            cursor: pointer;
+            padding: 0;
+        }
+        .recent-panel .recent-close:focus {
+            outline: 2px solid rgba(255, 79, 90, 0.65);
+            outline-offset: 3px;
         }
         .recent-panel.open {
             opacity: 1;
@@ -1163,6 +1566,7 @@
             h2 { font-size: 2.5rem; margin-bottom: 2rem; }
             .info-section { padding: 2rem; }
             .recent-panel { right: 10px; bottom: 118px; }
+            .cascade-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 640px) {
             .hero { height: 90vh; padding: 1rem; }
@@ -1180,6 +1584,9 @@
             .hero-actions-secondary { gap: 0.5rem; }
             .btn.btn-secondary { padding: 0.85rem 1.2rem; font-size: 0.82rem; }
             .hero-link { font-size: 0.73rem; }
+            .cascade-shell { border-radius: 18px; padding: 0.85rem; }
+            .cascade-metric-row { grid-template-columns: 72px 1fr 54px; gap: 0.4rem; }
+            .cascade-mode-chip { font-size: 0.64rem; padding: 0.32rem 0.3rem; }
         }
         @media (prefers-reduced-motion: reduce) {
             * { animation: none !important; transition: none !important; }
@@ -1195,7 +1602,7 @@
     <div class="progress-container">
         <div class="progress-fill"></div>
     </div>
-    <div class="progress-text">12% models completed</div>
+    <div class="progress-text">website 12% built</div>
 </div>
 <div class="hero-glow glow-one"></div>
 <div class="hero-glow glow-two"></div>
@@ -1247,6 +1654,7 @@
 <aside class="recent-panel" id="recentPanel" aria-hidden="true">
     <div class="recent-head">Recently Visited</div>
     <div class="recent-list" id="recentList"></div>
+    <button class="recent-close" id="recentCloseBtn" type="button" aria-label="Close recently visited">×</button>
 </aside>
 <div class="toast" id="toast">
     <div class="toast-row">
@@ -1254,6 +1662,7 @@
         <button class="toast-close" id="toastCloseBtn" type="button" aria-label="Close notification">×</button>
     </div>
 </div>
+<div class="notification-stack" id="notificationStack" aria-live="polite" aria-atomic="true"></div>
 
 <main id="home" class="view active">
     <section class="hero">
@@ -1285,7 +1694,7 @@
                     <div class="hero-stat-label">Relentless evolution</div>
                 </div>
             </div>
-            <div class="hero-footnote">New drops every Friday | Join the waitlist below</div>
+            <div class="hero-footnote">New drops every Friday</div>
         </div>
         <div class="hero-actions">
             <div class="hero-actions-main">
@@ -1304,68 +1713,165 @@
             <a class="hero-link" onclick="showView('about-me')">Creator Bio</a>
         </div>
     </section>
+    <section class="adaptive-cascade-section" id="adaptive-cascade">
+        <div class="cascade-shell" id="adaptiveCascadeRoot" aria-live="polite">
+            <div class="cascade-head">
+                <h3 class="cascade-title">Adaptive Intelligence Cascade (available to browser, only 1 core/thread)</h3>
+                <span class="cascade-pill" id="cascadeModePill">Live Device Mode</span>
+            </div>
+            <p class="cascade-subtitle">
+                Live routing monitor for KrazyDen AI. Resource pressure decides when the system keeps high intelligence active or drops into resilient fallback modes.
+            </p>
+
+            <div class="cascade-grid">
+                <article class="cascade-panel">
+                    <div class="cascade-resource-head">
+                        <h4>Resource Availability (0-100 Used)</h4>
+                        <div class="cascade-resource-value" id="cascadeResourceValue">0%</div>
+                    </div>
+                    <div class="cascade-resource-track" id="cascadeResourceTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                        <div class="cascade-resource-fill" id="cascadeResourceFill"></div>
+                        <div class="cascade-scan"></div>
+                    </div>
+
+                    <div class="cascade-mode-strip">
+                        <div class="cascade-mode-chip" id="cascadeChipHigh">High Power Mode</div>
+                        <div class="cascade-mode-chip" id="cascadeChipBalanced">Balanced Mode</div>
+                        <div class="cascade-mode-chip" id="cascadeChipSurvival">Survival Mode</div>
+                    </div>
+
+                    <div class="cascade-metrics">
+                        <div class="cascade-metric-row">
+                            <div class="cascade-metric-label">CPU</div>
+                            <div class="cascade-mini-track"><div class="cascade-mini-fill" id="cascadeCpuFill"></div></div>
+                            <div class="cascade-metric-value" id="cascadeCpuValue">0%</div>
+                        </div>
+                        <div class="cascade-metric-row">
+                            <div class="cascade-metric-label">Memory</div>
+                            <div class="cascade-mini-track"><div class="cascade-mini-fill" id="cascadeMemoryFill"></div></div>
+                            <div class="cascade-metric-value" id="cascadeMemoryValue">0%</div>
+                        </div>
+                        <div class="cascade-metric-row">
+                            <div class="cascade-metric-label">Performance</div>
+                            <div class="cascade-mini-track"><div class="cascade-mini-fill" id="cascadePerformanceFill"></div></div>
+                            <div class="cascade-metric-value" id="cascadePerformanceValue">0%</div>
+                        </div>
+                    </div>
+
+                    <p class="cascade-status" id="cascadeStatusText">High resources detected - using primary intelligence layer.</p>
+                    <p class="cascade-reason" id="cascadeReasonText">Monitoring device pressure and runtime stability before selecting the active model.</p>
+                </article>
+
+                <article class="cascade-panel">
+                    <h4 class="cascade-ladder-title">Model Ladder</h4>
+                    <ul class="cascade-ladder">
+                        <li class="cascade-model" id="cascadeModelCloud">
+                            <div class="cascade-model-icon">&#9729;</div>
+                            <div>
+                                <strong>Cloud Model</strong>
+                                <span>Highest intelligence, heavy tasks</span>
+                            </div>
+                        </li>
+                        <li class="cascade-model" id="cascadeModel64M">
+                            <div class="cascade-model-icon">&#129504;</div>
+                            <div>
+                                <strong>64M Model</strong>
+                                <span>Primary local brain</span>
+                            </div>
+                        </li>
+                        <li class="cascade-model" id="cascadeModel1M">
+                            <div class="cascade-model-icon">&#129718;</div>
+                            <div>
+                                <strong>1M Model</strong>
+                                <span>Lightweight fallback</span>
+                            </div>
+                        </li>
+                        <li class="cascade-model" id="cascadeModel100K">
+                            <div class="cascade-model-icon">&#9881;</div>
+                            <div>
+                                <strong>100K Model</strong>
+                                <span>Emergency survival brain</span>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </section>
     <section class="home-cards-section" id="capabilities">
         <h2>What You Can Do With KrazyDen AI</h2>
         <p class="home-cards-intro">
-            Like the old build, these quick cards are here as you scroll. Tap any card to jump into the right model or section.
+            Tap any card to jump into the right model or section.
         </p>
         <div class="demo-grid">
             <div class="demo-card" onclick="showDetail('use-write')">
+                <div class="demo-card-icon">🧠</div>
                 <div class="demo-card-kicker">Reasoning</div>
                 <h3>Deep Planning Tasks</h3>
                 <p>Open a focused page on planning workflows, deliverables, and outputs.</p>
             </div>
             <div class="demo-card" onclick="showDetail('use-media')">
+                <div class="demo-card-icon">⚡</div>
                 <div class="demo-card-kicker">Edge Runtime</div>
                 <h3>Lightweight Local AI</h3>
                 <p>See media pipelines for image, audio, and video tasks on local rigs.</p>
             </div>
             <div class="demo-card" onclick="showDetail('use-study')">
+                <div class="demo-card-icon">🔎</div>
                 <div class="demo-card-kicker">Multi-Modal</div>
                 <h3>Study + Research</h3>
                 <p>Check structured study flows for test prep, coding, and memory drills.</p>
             </div>
             <div class="demo-card" onclick="showDetail('use-debug')">
+                <div class="demo-card-icon">🐞</div>
                 <div class="demo-card-kicker">Project Core</div>
                 <h3>Debugging Workbench</h3>
                 <p>Open the debugging page for reproducible bug triage and fix workflows.</p>
             </div>
             <div class="demo-card" onclick="showDetail('use-automation')">
+                <div class="demo-card-icon">🤖</div>
                 <div class="demo-card-kicker">Automation</div>
                 <h3>Agent Automations</h3>
                 <p>Build recurring workflows that trigger tools and produce structured outputs.</p>
             </div>
             <div class="demo-card" onclick="showDetail('use-robotics')">
+                <div class="demo-card-icon">🚀</div>
                 <div class="demo-card-kicker">Robotics</div>
                 <h3>Robot Task Planning</h3>
                 <p>Map high-level goals into stepwise actions and safety-aware fallback plans.</p>
             </div>
             <div class="demo-card" onclick="showDetail('use-security')">
+                <div class="demo-card-icon">🔒</div>
                 <div class="demo-card-kicker">Security</div>
                 <h3>Security Review</h3>
                 <p>Run threat-model checklists, config audits, and hardening recommendations.</p>
             </div>
             <div class="demo-card" onclick="showDetail('use-devops')">
+                <div class="demo-card-icon">🛠️</div>
                 <div class="demo-card-kicker">DevOps</div>
                 <h3>Deployment Ops</h3>
                 <p>Plan release pipelines, health checks, rollback logic, and uptime dashboards.</p>
             </div>
             <div class="demo-card" onclick="showDetail('use-voice')">
+                <div class="demo-card-icon">🎤</div>
                 <div class="demo-card-kicker">Voice</div>
                 <h3>Voice Assistant Flows</h3>
                 <p>Create low-latency voice loops with intent routing and response constraints.</p>
             </div>
             <div class="demo-card" onclick="showDetail('use-enterprise')">
+                <div class="demo-card-icon">🏢</div>
                 <div class="demo-card-kicker">Enterprise</div>
                 <h3>Team Knowledge Ops</h3>
                 <p>Turn docs into searchable operational memory with controlled access paths.</p>
             </div>
             <div class="demo-card" onclick="showDetail('use-mobile')">
+                <div class="demo-card-icon">📱</div>
                 <div class="demo-card-kicker">Mobile</div>
                 <h3>On-Device Assistant</h3>
                 <p>Design mobile-first inference profiles that balance battery, speed, and quality.</p>
             </div>
             <div class="demo-card" onclick="showDetail('knowledge-center')">
+                <div class="demo-card-icon">📚</div>
                 <div class="demo-card-kicker">Knowledge</div>
                 <h3>Knowledge Center</h3>
                 <p>Open long-form docs, mega FAQ, and release archives for deeper reference.</p>
@@ -1387,12 +1893,12 @@
     <h2>AI Models</h2>
     <div class="models-grid">
         <div class="model-card featured" onclick="showDetail('krazykoreden')">
-            <div class="model-tag">FOCUS - ALPHA</div>
+            <div class="model-tag">FOCUS - ALPHA (2% trained)</div>
             <h3>KrazyKoreDenAI</h3>
             <p>Our flagship experimental model - 64M params, CoT reasoning, tool use. Click for specs.</p>
         </div>
         <div class="model-card" onclick="showDetail('krazykore')">
-            <div class="model-tag">EXPERIMENTAL - BETA</div>
+            <div class="model-tag">EXPERIMENTAL - Alpha</div>
             <h3>KrazyKoreAI</h3>
             <p>Ultra-light edge model (1-5M params). Click for docs.</p>
         </div>
@@ -1410,7 +1916,7 @@
         <h3>Reasoning at the Edge</h3>
         <p>KrazyDen AI is built around one belief: powerful AI should not be locked behind expensive cloud stacks. The project focuses on making reasoning models practical on personal hardware, from compact boards to high-performance local rigs.</p>
         <div class="highlight-box">
-            "We are not just building a model. We are building a practical intelligence stack people can run, inspect, and evolve on their own machines."
+            "We are not just building a model. We are building a practical intelligence stack people can run, inspect, and evolve on their own machines. - Creator (A.K.A Kanishk)"
         </div>
         <div class="about-layout">
             <div class="about-card">
@@ -1437,6 +1943,18 @@
             <li>Transparent model behavior and controllable runtime modes</li>
             <li>Tool-ready architecture for coding, automation, and robotics workflows</li>
             <li>Open iteration with fast feedback from real usage</li>
+            <li>Fine tuning with your own data (optional)</li>
+            <li>Complete privacy, User data is not used to train our models</li>
+            <li>Ease of Use, can understand</li>
+            <li>Feels like a human does</li>
+            <li>Extreme performance and efficiency</li>
+            <li>Extremely low latency and high throughput</li>
+            <li>Extremely low resource usage</li>
+            <li>Extremely fast startup and warmup times</li>
+            <li>Instant first tokens</li>
+            <li>Unique cutting edge architecture</li>
+            <li>Extremely fast inference speeds</li>
+            <li>Most Igpus reaching 100+ tk/s</li>
         </ul>
         <h3 class="section-title">Project Direction</h3>
         <p>The roadmap pushes toward better long-context memory, stronger planner consistency, and cleaner orchestration between lightweight and high-capacity models. Every release is measured by practical usefulness, not just isolated metrics.</p>
@@ -4461,6 +4979,8 @@
     const openPaletteOption = document.getElementById('openPaletteOption');
     const toggleRecentOption = document.getElementById('toggleRecentOption');
     const copyLinkOption = document.getElementById('copyLinkOption');
+    const recentCloseBtn = document.getElementById('recentCloseBtn');
+    const notificationStack = document.getElementById('notificationStack');
     const toastEl = document.getElementById('toast');
     const toastMessageEl = document.getElementById('toastMessage');
     const toastCloseBtn = document.getElementById('toastCloseBtn');
@@ -4469,11 +4989,16 @@
     let paletteCursor = 0;
     let recentViews = [];
 
-    function applyTheme(theme) {
+    let applyThemeInitial = true;
+    function applyTheme(theme, { notify = true } = {}) {
         document.body.classList.remove('light');
         if (theme === 'light') document.body.classList.add('light');
         else if (theme === 'system' && window.matchMedia('(prefers-color-scheme: light)').matches) document.body.classList.add('light');
         localStorage.setItem('theme', theme);
+        if (notify && !applyThemeInitial) {
+            addNotification(`Theme changed to ${theme === 'light' ? 'light' : 'dark'} mode`, { type: 'theme' });
+        }
+        applyThemeInitial = false;
     }
 
     function syncActiveNav(viewId) {
@@ -4482,7 +5007,7 @@
         });
     }
 
-    applyTheme(localStorage.getItem('theme') || 'dark');
+    applyTheme(localStorage.getItem('theme') || 'dark', { notify: false });
     syncActiveNav('home');
 
     settingsWrapper.addEventListener('mouseenter', () => { themeFlyout.classList.add('open'); });
@@ -4509,12 +5034,16 @@
         return viewId.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
     }
 
+    const extraPaletteItems = [
+        { id: 'adaptive-cascade', title: 'Adaptive Intelligence Cascade', kind: 'Monitor' }
+    ];
     function getViewItems() {
-        return Array.from(document.querySelectorAll('main.view')).map(view => ({
+        const list = Array.from(document.querySelectorAll('main.view')).map(view => ({
             id: view.id,
             title: getReadableTitle(view.id),
             kind: view.id.startsWith('use-') ? 'Use Case' : view.id.startsWith('metric-') ? 'Metric' : 'Page'
         }));
+        return list.concat(extraPaletteItems);
     }
 
     function openPalette() {
@@ -4551,6 +5080,53 @@
         closeRecentPanel();
         overlay.classList.remove('open');
         document.body.classList.remove('overlay-open');
+    }
+
+    function addNotification(message, { type = 'info' } = {}) {
+        if (!notificationStack) return;
+        const entry = document.createElement('div');
+        entry.className = `notification ${type}`;
+        entry.innerHTML = `
+            <div class="notification-row">
+                <span class="notification-text">${message}</span>
+                <button type="button" class="notification-close" aria-label="Dismiss notification">×</button>
+            </div>
+            <div class="notification-progress-track">
+                <span class="notification-progress-bar"></span>
+            </div>
+        `;
+        const bar = entry.querySelector('.notification-progress-bar');
+        const removeEntry = (node) => {
+            if (!node || node._closing) return;
+            node._closing = true;
+            const prog = node.querySelector('.notification-progress-bar');
+            if (prog) {
+                prog.classList.add('stopped');
+                prog.classList.remove('running');
+            }
+            node.classList.add('closing');
+            clearTimeout(node._timer);
+            node._removeTimer = setTimeout(() => node.remove(), 280);
+        };
+        const remove = () => removeEntry(entry);
+        const closeBtn = entry.querySelector('.notification-close');
+        closeBtn.addEventListener('click', remove);
+        entry._timer = setTimeout(remove, 5200);
+        notificationStack.prepend(entry);
+        if (bar) {
+            bar.classList.remove('stopped', 'running');
+            bar.style.animation = 'none';
+            bar.style.width = '100%';
+            void bar.offsetWidth;
+            bar.style.animation = 'progressBar 5s linear forwards';
+        }
+        entry.classList.add('pop');
+    }
+
+    function notifyPaletteNavigation(payload) {
+        if (!payload) return;
+        const titleText = payload.title || getReadableTitle(payload.id);
+        addNotification(`Successfully navigated to page ${titleText}`, { type: 'navigation' });
     }
 
     function showToast(text) {
@@ -4633,7 +5209,9 @@
             row.innerHTML = `<strong>${item.title}</strong><span>${item.kind}</span>`;
             row.onclick = () => {
                 closeOverlays();
-                showView(item.id);
+                notifyPaletteNavigation(item);
+                if (item.id === 'adaptive-cascade') scrollToAdaptiveCascade();
+                else showView(item.id);
             };
             paletteList.appendChild(row);
         });
@@ -4645,10 +5223,23 @@
         if (rows[paletteCursor]) rows[paletteCursor].scrollIntoView({ block: 'nearest' });
     }
 
+    function scrollToAdaptiveCascade() {
+        showView('home');
+        setTimeout(() => {
+            const target = document.getElementById('adaptive-cascade');
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+        }, 120);
+    }
+
     function navigateToPaletteSelection() {
         const item = paletteItems[paletteCursor];
         if (!item) return;
         closeOverlays();
+        notifyPaletteNavigation(item);
+        if (item.id === 'adaptive-cascade') {
+            scrollToAdaptiveCascade();
+            return;
+        }
         showView(item.id);
     }
 
@@ -4870,6 +5461,244 @@
         if (typeformFrame.complete) markReady();
     }
 
+    function initAdaptiveCascadeMonitor() {
+        if (initAdaptiveCascadeMonitor._active) return;
+        var root = document.getElementById('adaptiveCascadeRoot');
+        if (!root) return;
+        initAdaptiveCascadeMonitor._active = true;
+
+        var nav = window.navigator || {};
+        var hasRAF = typeof window.requestAnimationFrame === 'function';
+        var hasDeviceMemory = typeof nav.deviceMemory === 'number' && nav.deviceMemory > 0;
+        var hasCpuCores = typeof nav.hardwareConcurrency === 'number' && nav.hardwareConcurrency > 0;
+        var simulationMode = !(hasRAF && hasDeviceMemory && hasCpuCores);
+
+        function get(id) { return document.getElementById(id); }
+        var el = {
+            modePill: get('cascadeModePill'),
+            resourceTrack: get('cascadeResourceTrack'),
+            resourceFill: get('cascadeResourceFill'),
+            resourceValue: get('cascadeResourceValue'),
+            chipHigh: get('cascadeChipHigh'),
+            chipBalanced: get('cascadeChipBalanced'),
+            chipSurvival: get('cascadeChipSurvival'),
+            cpuFill: get('cascadeCpuFill'),
+            cpuValue: get('cascadeCpuValue'),
+            memoryFill: get('cascadeMemoryFill'),
+            memoryValue: get('cascadeMemoryValue'),
+            performanceFill: get('cascadePerformanceFill'),
+            performanceValue: get('cascadePerformanceValue'),
+            status: get('cascadeStatusText'),
+            reason: get('cascadeReasonText'),
+            modelCloud: get('cascadeModelCloud'),
+            model64M: get('cascadeModel64M'),
+            model1M: get('cascadeModel1M'),
+            model100K: get('cascadeModel100K')
+        };
+        if (!el.resourceFill || !el.modePill || !el.modelCloud || !el.model100K) return;
+
+        var fpsEstimate = 60;
+        var fpsFrames = 0;
+        var fpsStart = 0;
+        var hidden = false;
+        var loadPressure = 30;
+        var phase = 0;
+
+        var display = { cpu: 42, memory: 38, perf: 74, resource: 66 };
+        var target = { cpu: 42, memory: 38, perf: 74, resource: 66 };
+        var last = { cpu: -1, memory: -1, perf: -1, resource: -1, mode: '', model: '', status: '', reason: '' };
+
+        function setText(node, value) {
+            if (!node) return;
+            if (node.textContent !== value) node.textContent = value;
+        }
+
+        function clamp(value, min, max) {
+            if (value < min) return min;
+            if (value > max) return max;
+            return value;
+        }
+
+        function rand(min, max) {
+            return min + Math.random() * (max - min);
+        }
+
+        function ease(current, next, factor) {
+            return current + (next - current) * factor;
+        }
+
+        function setModeChip(mode) {
+            el.chipHigh.className = mode === 'High Power Mode' ? 'cascade-mode-chip active' : 'cascade-mode-chip';
+            el.chipBalanced.className = mode === 'Balanced Mode' ? 'cascade-mode-chip active' : 'cascade-mode-chip';
+            el.chipSurvival.className = mode === 'Survival Mode' ? 'cascade-mode-chip active' : 'cascade-mode-chip';
+        }
+
+        function setModel(model) {
+            el.modelCloud.className = 'cascade-model';
+            el.model64M.className = 'cascade-model';
+            el.model1M.className = 'cascade-model';
+            el.model100K.className = 'cascade-model';
+
+            if (model === 'cloud') el.modelCloud.className = 'cascade-model active';
+            else if (model === 'm64') el.model64M.className = 'cascade-model active';
+            else if (model === 'm1') el.model1M.className = 'cascade-model active';
+            else el.model100K.className = 'cascade-model active';
+        }
+
+        function decide(resource, cpu, memory, perf) {
+            var mode;
+            var model;
+            var status;
+            var reason;
+
+            if (resource >= 75) {
+                mode = 'High Power Mode';
+                if (resource >= 90 && cpu < 45 && memory < 45 && perf > 70) {
+                    model = 'cloud';
+                    status = 'High resources detected - using primary intelligence layer.';
+                    reason = 'Low pressure and stable performance allow full cloud reasoning depth.';
+                } else {
+                    model = 'm64';
+                    status = 'High resources detected - using primary intelligence layer.';
+                    reason = 'Local headroom is healthy, so the 64M model stays active for strong fast output.';
+                }
+            } else if (resource >= 40) {
+                mode = 'Balanced Mode';
+                model = 'm1';
+                status = 'Performance fluctuation detected - switching to lightweight model.';
+                reason = 'Moderate CPU or memory pressure triggers the 1M fallback to preserve responsiveness.';
+            } else {
+                mode = 'Survival Mode';
+                model = 'm100k';
+                status = 'Low resource environment - emergency fallback engaged.';
+                reason = 'Critical pressure forces the system to 100K survival mode for continuity.';
+            }
+
+            return { mode: mode, model: model, status: status, reason: reason };
+        }
+
+        function buildTargets() {
+            if (simulationMode) {
+                phase += 0.28;
+                var w1 = (Math.sin(phase) + 1) * 0.5;
+                var w2 = (Math.sin(phase * 0.67 + 1.3) + 1) * 0.5;
+                var w3 = (Math.sin(phase * 1.07 + 2.4) + 1) * 0.5;
+
+                target.cpu = clamp(18 + (w1 * 72) + rand(-4.5, 4.5), 4, 98);
+                target.memory = clamp(24 + (w2 * 66) + rand(-4.2, 4.2), 5, 98);
+                target.perf = clamp(20 + (w3 * 76) - (target.cpu * 0.14) + rand(-4, 4), 4, 100);
+            } else {
+                var memoryGB = nav.deviceMemory;
+                var cores = nav.hardwareConcurrency;
+                var memoryHeadroom = clamp((memoryGB / 8) * 100, 24, 100);
+                var coreHeadroom = clamp((cores / 8) * 100, 24, 100);
+                var fpsHeadroom = clamp((fpsEstimate / 60) * 100, 16, 100);
+
+                loadPressure = clamp(loadPressure + rand(-8, 8), 10, 96);
+                if (Math.random() < 0.09) loadPressure = clamp(loadPressure + rand(8, 22), 10, 98);
+                if (Math.random() < 0.08) loadPressure = clamp(loadPressure - rand(8, 20), 5, 98);
+
+                target.cpu = clamp(((100 - coreHeadroom) * 0.34) + (loadPressure * 0.72) - (fpsHeadroom * 0.15), 4, 99);
+                target.memory = clamp(((100 - memoryHeadroom) * 0.53) + (loadPressure * 0.44) + rand(-3.5, 3.5), 4, 99);
+                target.perf = clamp((fpsHeadroom * 0.82) + (coreHeadroom * 0.2) - (loadPressure * 0.28) + rand(-3.5, 3.5), 4, 100);
+            }
+
+            target.resource = clamp(((100 - target.cpu) * 0.4) + ((100 - target.memory) * 0.3) + (target.perf * 0.3), 0, 100);
+        }
+
+        function render() {
+            if (hidden) return;
+            display.cpu = ease(display.cpu, target.cpu, 0.22);
+            display.memory = ease(display.memory, target.memory, 0.22);
+            display.perf = ease(display.perf, target.perf, 0.22);
+            display.resource = ease(display.resource, target.resource, 0.2);
+
+            var cpu = clamp(display.cpu, 0, 100);
+            var memory = clamp(display.memory, 0, 100);
+            var perf = clamp(display.perf, 0, 100);
+            var resource = clamp(display.resource, 0, 100);
+
+            var d = decide(resource, cpu, memory, perf);
+            if (d.model !== last.model) {
+                last.model = d.model;
+                setModel(d.model);
+            }
+            if (d.mode !== last.mode) {
+                last.mode = d.mode;
+                setModeChip(d.mode);
+            }
+            if (d.status !== last.status) {
+                last.status = d.status;
+                setText(el.status, d.status);
+            }
+            if (d.reason !== last.reason) {
+                last.reason = d.reason;
+                setText(el.reason, d.reason);
+            }
+
+            var cpuRounded = Math.round(cpu);
+            var memoryRounded = Math.round(memory);
+            var perfRounded = Math.round(perf);
+            var resourceRounded = Math.round(resource);
+
+            if (cpuRounded !== last.cpu) {
+                last.cpu = cpuRounded;
+                setText(el.cpuValue, cpuRounded + '%');
+                el.cpuFill.style.width = cpuRounded + '%';
+            }
+            if (memoryRounded !== last.memory) {
+                last.memory = memoryRounded;
+                setText(el.memoryValue, memoryRounded + '%');
+                el.memoryFill.style.width = memoryRounded + '%';
+            }
+            if (perfRounded !== last.perf) {
+                last.perf = perfRounded;
+                setText(el.performanceValue, perfRounded + '%');
+                el.performanceFill.style.width = perfRounded + '%';
+            }
+            if (resourceRounded !== last.resource) {
+                last.resource = resourceRounded;
+                setText(el.resourceValue, resourceRounded + '%');
+                el.resourceFill.style.width = resourceRounded + '%';
+                el.resourceTrack.setAttribute('aria-valuenow', String(resourceRounded));
+            }
+        }
+
+        function fpsLoop(timestamp) {
+            if (simulationMode || hidden) {
+                window.requestAnimationFrame(fpsLoop);
+                return;
+            }
+            if (!fpsStart) fpsStart = timestamp;
+            fpsFrames += 1;
+            var elapsed = timestamp - fpsStart;
+            if (elapsed >= 1000) {
+                fpsEstimate = clamp(Math.round((fpsFrames * 1000) / elapsed), 15, 120);
+                fpsFrames = 0;
+                fpsStart = timestamp;
+            }
+            window.requestAnimationFrame(fpsLoop);
+        }
+
+        if (simulationMode) {
+            el.modePill.className = 'cascade-pill demo';
+            setText(el.modePill, 'Simulation Mode (Device Compatibility)');
+        } else {
+            el.modePill.className = 'cascade-pill';
+            setText(el.modePill, 'Live Device Mode');
+        }
+
+        document.addEventListener('visibilitychange', function () {
+            hidden = document.hidden;
+        });
+
+        buildTargets();
+        render();
+        setInterval(buildTargets, 1700);
+        setInterval(render, 380);
+        if (hasRAF) window.requestAnimationFrame(fpsLoop);
+    }
+
     const phrases = [
         "Built from Scratch", "Open-Source", "Dynamic", "Ready to Rock.", "Auto Scaling",
         "Runs on anything*", "Efficient", "Fast and Accurate", "Next-Gen Intelligence",
@@ -4941,6 +5770,7 @@
             themeFlyout.classList.remove('open');
             copyCurrentPageLink();
         });
+        if (recentCloseBtn) recentCloseBtn.addEventListener('click', closeRecentPanel);
         overlay.addEventListener('click', closeOverlays);
         paletteInput.addEventListener('input', () => renderPalette(paletteInput.value));
         paletteInput.addEventListener('keydown', (event) => {
@@ -4960,6 +5790,13 @@
                 event.preventDefault();
                 closeOverlays();
             }
+        });
+        document.addEventListener('click', (event) => {
+            if (!recentPanel) return;
+            if (recentPanel.contains(event.target)) return;
+            if (toggleRecentOption && toggleRecentOption.contains(event.target)) return;
+            if (openPaletteOption && openPaletteOption.contains(event.target)) return;
+            closeRecentPanel();
         });
         document.addEventListener('keydown', (event) => {
             const isCmdK = (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k';
@@ -4982,6 +5819,7 @@
         initTapTargets();
         initUtilityEvents();
         loadRecentViews();
+        initAdaptiveCascadeMonitor();
         initTypeformPreload();
         initFaqTools();
         initReleaseArchiveTools();
